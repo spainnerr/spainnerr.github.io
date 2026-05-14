@@ -1,1 +1,701 @@
-# spainnerr.github.io
+# spainnerr.github.io[portfolio-matematica.html](https://github.com/user-attachments/files/27737027/portfolio-matematica.html)
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prof. — Matemática</title>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #1a1a2e;
+      --paper: #f5f0e8;
+      --accent: #8b1a1a;
+      --muted: #6b6455;
+      --rule: #c8bfaa;
+      --gold: #b8860b;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'EB Garamond', Georgia, serif;
+      background-color: var(--paper);
+      color: var(--ink);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Ruled paper texture */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(
+          transparent,
+          transparent 27px,
+          rgba(180,165,140,0.18) 27px,
+          rgba(180,165,140,0.18) 28px
+        );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 3rem;
+      background: rgba(245,240,232,0.92);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .nav-logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.95rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 0; height: 1px;
+      background: var(--accent);
+      transition: width 0.25s ease;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 6rem 3rem 4rem;
+      gap: 4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-text { max-width: 560px; }
+
+    .hero-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.1s forwards;
+    }
+
+    .hero-name {
+      font-size: clamp(2.8rem, 5vw, 4.5rem);
+      font-weight: 600;
+      line-height: 1.08;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.25s forwards;
+    }
+
+    .hero-title {
+      font-size: 1.25rem;
+      font-style: italic;
+      color: var(--muted);
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.4s forwards;
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--ink);
+      max-width: 440px;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.55s forwards;
+      border-left: 2px solid var(--accent);
+      padding-left: 1.2rem;
+    }
+
+    .hero-cta {
+      display: inline-block;
+      margin-top: 2.5rem;
+      padding: 0.7rem 2rem;
+      border: 1.5px solid var(--accent);
+      color: var(--accent);
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: background 0.2s, color 0.2s;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.7s forwards;
+    }
+
+    .hero-cta:hover {
+      background: var(--accent);
+      color: var(--paper);
+    }
+
+    /* Math canvas */
+    .hero-visual {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      animation: fadeIn 1.2s 0.8s forwards;
+    }
+
+    .math-board {
+      width: 100%;
+      max-width: 420px;
+      aspect-ratio: 4/3;
+      background: #1e2a1e;
+      border: 2px solid #3a4a3a;
+      border-radius: 4px;
+      padding: 2rem;
+      box-shadow: 6px 6px 0 rgba(0,0,0,0.25);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .math-board::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 30% 40%, rgba(255,255,255,0.04), transparent 60%);
+    }
+
+    .board-line {
+      font-family: 'JetBrains Mono', monospace;
+      color: rgba(255,255,255,0.85);
+      font-size: clamp(0.7rem, 1.5vw, 0.95rem);
+      margin-bottom: 0.9rem;
+      opacity: 0;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .board-line.accent-line { color: #aed8a0; }
+    .board-line.dim { color: rgba(255,255,255,0.4); font-size: 0.75rem; }
+
+    @keyframes typeIn {
+      from { width: 0; opacity: 0; }
+      to { width: 100%; opacity: 1; }
+    }
+
+    .board-line:nth-child(1) { animation: typeIn 0.6s 1.2s forwards; }
+    .board-line:nth-child(2) { animation: typeIn 0.6s 1.7s forwards; }
+    .board-line:nth-child(3) { animation: typeIn 0.5s 2.2s forwards; }
+    .board-line:nth-child(4) { animation: typeIn 0.6s 2.6s forwards; }
+    .board-line:nth-child(5) { animation: typeIn 0.4s 3.0s forwards; }
+    .board-line:nth-child(6) { animation: typeIn 0.5s 3.3s forwards; }
+    .board-line:nth-child(7) { animation: typeIn 0.4s 3.7s forwards; }
+
+    /* ── DIVIDER ── */
+    .section-divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0 3rem;
+      margin: 2rem 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-divider span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .section-divider::before,
+    .section-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 4rem 3rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .section-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .about-text p {
+      font-size: 1.08rem;
+      margin-bottom: 1.2rem;
+      color: var(--ink);
+    }
+
+    .stats-column {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .stat-item {
+      border-top: 1px solid var(--rule);
+      padding-top: 1rem;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 0.3rem;
+    }
+
+    /* ── AREAS ── */
+    .areas-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .area-card {
+      background: rgba(255,255,255,0.4);
+      border: 1px solid var(--rule);
+      padding: 1.8rem;
+      transition: border-color 0.2s, transform 0.2s;
+      cursor: default;
+    }
+
+    .area-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .area-symbol {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.4rem;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+
+    .area-name {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .area-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ── FORMAÇÃO ── */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+      border-left: 1px solid var(--rule);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2.5rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.4rem;
+      top: 0.5rem;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--paper);
+      box-shadow: 0 0 0 1px var(--accent);
+    }
+
+    .timeline-year {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+    }
+
+    .timeline-degree {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 0.2rem 0;
+    }
+
+    .timeline-institution {
+      font-style: italic;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    /* ── CONTACT ── */
+    .contact-block {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 3rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      max-width: 100%;
+    }
+
+    .contact-title {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+    }
+
+    .contact-sub {
+      color: rgba(245,240,232,0.6);
+      font-style: italic;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .contact-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      color: rgba(245,240,232,0.8);
+    }
+
+    .contact-row .label {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      min-width: 60px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 1.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      border-top: 1px solid var(--rule);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+      .hero { grid-template-columns: 1fr; padding: 5rem 1.5rem 3rem; gap: 2rem; }
+      .hero-visual { order: -1; }
+      section { padding: 3rem 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .areas-grid { grid-template-columns: 1fr; }
+      .contact-block { grid-template-columns: 1fr; }
+      .section-divider { padding: 0 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">Prof. Matemática</span>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#areas">Áreas</a></li>
+    <li><a href="#formacao">Formação</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-text">
+    <p class="hero-label">Professor de Matemática</p>
+    <h1 class="hero-name">Prof. João<br>Silva</h1>
+    <p class="hero-title">Doutor em Matemática Pura · UNICAMP</p>
+    <p class="hero-desc">
+      Dedicado ao ensino rigoroso e apaixonado da matemática, da teoria elementar ao cálculo avançado.
+    </p>
+    <a href="#contato" class="hero-cta">Entre em contato →</a>
+  </div>
+
+  <div class="hero-visual">
+    <div class="math-board">
+      <div class="board-line dim">// Teorema Fundamental do Cálculo</div>
+      <div class="board-line accent-line">∫ₐᵇ f(x) dx = F(b) − F(a)</div>
+      <div class="board-line dim">// Identidade de Euler</div>
+      <div class="board-line accent-line">e^(iπ) + 1 = 0</div>
+      <div class="board-line dim">// Série de Taylor</div>
+      <div class="board-line">f(x) = Σ fⁿ(a)/n! · (x−a)ⁿ</div>
+      <div class="board-line dim">// Teorema de Pitágoras</div>
+      <div class="board-line accent-line">a² + b² = c²</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-divider"><span>§ 1</span></div>
+
+<!-- SOBRE -->
+<section id="sobre">
+  <div class="section-header reveal">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Sobre mim</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>
+        Sou professor de matemática com mais de 15 anos de experiência no ensino médio, pré-vestibular e nível superior. Minha formação acadêmica em matemática pura me proporciona uma visão aprofundada e estruturada dos fundamentos que embasam toda a disciplina.
+      </p>
+      <p>
+        Acredito que a matemática, quando bem ensinada, desenvolve não apenas habilidades de cálculo, mas uma forma rigorosa e criativa de pensar. Meu método combina demonstrações formais com exemplos concretos e intuição geométrica.
+      </p>
+      <p>
+        Ao longo da carreira, orientei centenas de alunos em olimpíadas de matemática, vestibulares e disciplinas universitárias, celebrando avanços em cada etapa do aprendizado.
+      </p>
+    </div>
+    <div class="stats-column reveal">
+      <div class="stat-item">
+        <div class="stat-number">15+</div>
+        <div class="stat-label">Anos de experiência</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">800+</div>
+        <div class="stat-label">Alunos formados</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">12</div>
+        <div class="stat-label">Medalhas olímpicas orientadas</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><span>§ 2</span></div>
+
+<!-- ÁREAS -->
+<section id="areas">
+  <div class="section-header reveal">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Áreas de atuação</h2>
+  </div>
+  <div class="areas-grid">
+    <div class="area-card reveal">
+      <span class="area-symbol">∫</span>
+      <div class="area-name">Cálculo</div>
+      <p class="area-desc">Limites, derivadas, integrais e séries. Do básico ao avançado, com rigor e intuição.</p>
+    </div>
+    <div class="area-card reveal">
+      <span class="area-symbol">Σ</span>
+      <div class="area-name">Álgebra Linear</div>
+      <p class="area-desc">Espaços vetoriais, matrizes, transformações lineares e autovalores.</p>
+    </div>
+    <div class="area-card reveal">
+      <span class="area-symbol">∀</span>
+      <div class="area-name">Matemática Discreta</div>
+      <p class="area-desc">Lógica, teoria dos conjuntos, combinatória e teoria dos números.</p>
+    </div>
+    <div class="area-card reveal">
+      <span class="area-symbol">△</span>
+      <div class="area-name">Geometria</div>
+      <p class="area-desc">Geometria plana, espacial, analítica e introdução à geometria diferencial.</p>
+    </div>
+    <div class="area-card reveal">
+      <span class="area-symbol">P</span>
+      <div class="area-name">Probabilidade</div>
+      <p class="area-desc">Estatística descritiva, distribuições e fundamentos de probabilidade.</p>
+    </div>
+    <div class="area-card reveal">
+      <span class="area-symbol">★</span>
+      <div class="area-name">Olimpíadas</div>
+      <p class="area-desc">Preparação para OBMEP, IMO e outras competições nacionais e internacionais.</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><span>§ 3</span></div>
+
+<!-- FORMAÇÃO -->
+<section id="formacao">
+  <div class="section-header reveal">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Formação acadêmica</h2>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item reveal">
+      <div class="timeline-year">2015</div>
+      <div class="timeline-degree">Doutorado em Matemática Pura</div>
+      <div class="timeline-institution">Universidade Estadual de Campinas — UNICAMP</div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-year">2010</div>
+      <div class="timeline-degree">Mestrado em Análise Matemática</div>
+      <div class="timeline-institution">Universidade de São Paulo — USP</div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-year">2008</div>
+      <div class="timeline-degree">Licenciatura e Bacharelado em Matemática</div>
+      <div class="timeline-institution">Universidade Federal do Rio de Janeiro — UFRJ</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><span>§ 4</span></div>
+
+<!-- CONTATO -->
+<section id="contato" style="padding: 2rem 3rem 4rem;">
+  <div class="section-header reveal">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Contato</h2>
+  </div>
+  <div class="contact-block reveal">
+    <div>
+      <div class="contact-title">Vamos conversar?</div>
+      <p class="contact-sub">Aulas particulares, consultoria acadêmica ou preparação para olimpíadas.</p>
+    </div>
+    <div class="contact-info">
+      <div class="contact-row">
+        <span class="label">Email</span>
+        joao.silva@matematica.com.br
+      </div>
+      <div class="contact-row">
+        <span class="label">Tel</span>
+        (11) 99999-0000
+      </div>
+      <div class="contact-row">
+        <span class="label">Local</span>
+        São Paulo, SP — Brasil
+      </div>
+      <div class="contact-row">
+        <span class="label">Online</span>
+        Aulas via Google Meet / Zoom
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Prof. João Silva · Matemática
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
