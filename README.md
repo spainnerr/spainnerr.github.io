@@ -1,830 +1,680 @@
-<!DOCTYPE html>
+
+  <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Prof. João Silva — Matemática</title>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@300;400;700&display=swap" rel="stylesheet" />
-  <style>
-    /* ── BASE & VARIÁVEIS ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>∎ Repositório de Demonstrações</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBFAF6;
+  --paper-deep:#F3F1E9;
+  --ink:#17171B;
+  --ink-soft:#4E4E55;
+  --pen:#23408E;
+  --pen-soft:#E8ECF6;
+  --editorial:#A4242A;
+  --rule:#DCD9CE;
+  --rule-soft:#E9E6DC;
+  --serif:'STIX Two Text', Georgia, serif;
+  --mono:'IBM Plex Mono', monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important}
+}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:17px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+button{font-family:inherit;cursor:pointer}
+input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--pen);outline-offset:2px;border-radius:2px}
 
-    :root {
-      --ink: #11111a;
-      --ink-light: #2a2a3c;
-      --paper: #f9f6f0;
-      --paper-dark: #e8e3d8;
-      --accent: #9b2222;
-      --accent-glow: rgba(155, 34, 34, 0.15);
-      --muted: #7a7365;
-      --rule: #d4ccbd;
-      --gold: #b8860b;
-      --board-bg: #151a15;
-      --board-border: #2a352a;
-      --board-text: #e0e0e0;
-      --board-accent: #aed8a0;
-    }
+/* ---------- moldura geral ---------- */
+.frame{max-width:980px;margin:0 auto;padding:0 28px 120px}
+@media(max-width:640px){.frame{padding:0 18px 90px}}
 
-    html { 
-      scroll-behavior: smooth; 
-      cursor: none; /* Oculta o cursor padrão para telas com mouse */
-    }
+/* ---------- cabeçalho ---------- */
+header.masthead{
+  padding:64px 0 30px;
+  border-bottom:3px double var(--ink);
+  display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;
+}
+.masthead-left{display:flex;align-items:flex-start;gap:22px}
+.tombstone{
+  width:54px;height:54px;flex-shrink:0;
+  background:var(--ink);
+  position:relative;top:6px;
+}
+.tombstone::after{
+  content:"";position:absolute;inset:5px;border:1.5px solid var(--paper);
+}
+h1{
+  font-size:clamp(28px,4.4vw,42px);
+  font-weight:600;letter-spacing:-0.01em;line-height:1.08;
+}
+.masthead .sub{
+  font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);
+  margin-top:10px;letter-spacing:0.04em;
+}
+.masthead-stats{
+  font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);
+  text-align:right;line-height:1.9;letter-spacing:0.03em;
+}
+.masthead-stats b{color:var(--pen);font-weight:500}
+@media(max-width:640px){
+  header.masthead{padding-top:44px}
+  .masthead-stats{text-align:left}
+}
 
-    body {
-      font-family: 'EB Garamond', Georgia, serif;
-      background-color: var(--paper);
-      color: var(--ink);
-      line-height: 1.7;
-      overflow-x: hidden;
-      position: relative;
-    }
+/* ---------- barra de ferramentas ---------- */
+.toolbar{
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+  padding:20px 0;border-bottom:1px solid var(--rule);
+  position:sticky;top:0;background:var(--paper);z-index:30;
+}
+.toolbar input[type=search]{
+  flex:1;min-width:180px;
+  border:1px solid var(--rule);background:#fff;
+  padding:9px 14px;font-size:15.5px;border-radius:2px;
+}
+.toolbar select{
+  border:1px solid var(--rule);background:#fff;
+  padding:9px 10px;font-size:14px;border-radius:2px;color:var(--ink-soft);
+  font-family:var(--mono);
+}
+.btn{
+  border:1px solid var(--ink);background:var(--ink);color:var(--paper);
+  padding:9px 18px;font-size:15px;border-radius:2px;
+  transition:background .15s,color .15s;
+}
+.btn:hover{background:var(--pen);border-color:var(--pen)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--rule)}
+.btn.ghost:hover{border-color:var(--ink);background:transparent;color:var(--ink)}
+.btn.danger{background:transparent;color:var(--editorial);border-color:var(--editorial)}
+.btn.danger:hover{background:var(--editorial);color:#fff}
+.btn.small{padding:6px 12px;font-size:13.5px}
 
-    /* Barra de rolagem customizada */
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: var(--paper); }
-    ::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+/* ---------- lista de teoremas ---------- */
+.list{padding-top:8px}
+.entry{
+  display:grid;grid-template-columns:96px 1fr;gap:0 26px;
+  padding:30px 0 26px;border-bottom:1px solid var(--rule-soft);
+  cursor:pointer;position:relative;
+}
+.entry:hover .entry-title{color:var(--pen)}
+.entry-margin{
+  font-family:var(--mono);font-size:12px;color:var(--ink-soft);
+  text-align:right;padding-top:5px;line-height:1.8;letter-spacing:0.03em;
+}
+.entry-margin .num{
+  display:block;font-size:21px;color:var(--pen);font-weight:500;letter-spacing:0;
+}
+.entry-title{
+  font-size:21px;font-weight:600;letter-spacing:-0.005em;
+  transition:color .15s;line-height:1.3;
+}
+.entry-statement{
+  margin-top:8px;font-style:italic;color:var(--ink-soft);font-size:16.5px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.entry-tags{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap}
+.tag{
+  font-family:var(--mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;
+  padding:3px 9px;border:1px solid var(--rule);color:var(--ink-soft);border-radius:2px;
+}
+.tag.area{border-color:var(--pen);color:var(--pen);background:var(--pen-soft)}
+@media(max-width:640px){
+  .entry{grid-template-columns:1fr;gap:6px}
+  .entry-margin{text-align:left;display:flex;gap:14px;align-items:baseline;padding-top:0}
+  .entry-margin .num{font-size:17px}
+}
 
-    /* Textura de papel pautado refinada */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        repeating-linear-gradient(
-          transparent,
-          transparent 27px,
-          rgba(180,165,140,0.15) 27px,
-          rgba(180,165,140,0.15) 28px
-        );
-      pointer-events: none;
-      z-index: 0;
-    }
+/* ---------- estado vazio / carregando ---------- */
+.empty{
+  padding:90px 20px;text-align:center;color:var(--ink-soft);
+}
+.empty .glyph{font-size:44px;color:var(--rule);line-height:1}
+.empty h2{font-weight:500;font-size:20px;margin:18px 0 8px;color:var(--ink)}
+.empty p{font-size:15.5px;max-width:420px;margin:0 auto 24px}
 
-    /* ── CURSOR CUSTOMIZADO ── */
-    @media (pointer: fine) {
-      .cursor-dot, .cursor-outline {
-        position: fixed;
-        top: 0; left: 0;
-        transform: translate(-50%, -50%);
-        border-radius: 50%;
-        z-index: 9999;
-        pointer-events: none;
-      }
-      .cursor-dot {
-        width: 6px; height: 6px;
-        background-color: var(--accent);
-        transition: transform 0.1s ease-out;
-      }
-      .cursor-outline {
-        width: 30px; height: 30px;
-        border: 1px solid var(--accent);
-        transition: width 0.2s, height 0.2s, background-color 0.2s;
-        /* Suaviza o atraso do contorno */
-        transition-timing-function: ease-out;
-      }
-      body:hover .cursor-dot { opacity: 1; }
-      
-      /* Estado hover em elementos interativos */
-      .hover-target .cursor-outline {
-        width: 50px; height: 50px;
-        background-color: var(--accent-glow);
-        border-color: transparent;
-      }
-      .hover-target .cursor-dot { transform: translate(-50%, -50%) scale(1.5); }
-    }
-    @media (pointer: coarse) { html { cursor: auto; } .cursor-dot, .cursor-outline { display: none; } } /* Restaura cursor em mobile */
+/* ---------- página de demonstração ---------- */
+.proof-page{padding-top:40px;animation:rise .35s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.crumb{
+  font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);
+  background:none;border:none;padding:0;letter-spacing:0.04em;
+}
+.crumb:hover{color:var(--pen)}
+.proof-head{margin:30px 0 10px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;align-items:flex-start}
+.proof-kicker{
+  font-family:var(--mono);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--pen);margin-bottom:10px;
+}
+.proof-title{font-size:clamp(24px,3.6vw,34px);font-weight:600;line-height:1.15;letter-spacing:-0.01em;max-width:640px}
+.proof-actions{display:flex;gap:8px;flex-shrink:0}
+.proof-meta{
+  margin:20px 0 34px;display:flex;gap:22px;flex-wrap:wrap;
+  font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);letter-spacing:0.03em;
+}
+.proof-meta span b{color:var(--ink);font-weight:500}
 
-    /* ── BARRA DE PROGRESSO ── */
-    .progress-bar {
-      position: fixed;
-      top: 0; left: 0;
-      height: 3px;
-      background: var(--accent);
-      width: 0%;
-      z-index: 1000;
-      transition: width 0.1s ease-out;
-    }
+.thm-block{
+  border-left:3px solid var(--pen);
+  background:var(--pen-soft);
+  padding:22px 26px;margin-bottom:36px;border-radius:0 2px 2px 0;
+}
+.thm-block .label{font-weight:700;font-style:normal;margin-right:6px}
+.thm-block .body{font-style:italic}
+.proof-body{font-size:17.5px}
+.proof-body .label{font-style:italic;font-weight:500;margin-right:6px}
+.proof-body p{margin-bottom:1em}
+.proof-body .katex-display{margin:1.1em 0;overflow-x:auto;overflow-y:hidden;padding:2px 0}
+.qed{
+  display:flex;justify-content:flex-end;margin-top:34px;
+}
+.qed .stone{
+  width:15px;height:15px;background:var(--ink);
+  animation:stamp .4s ease .25s both;
+}
+@keyframes stamp{from{opacity:0;transform:scale(1.8)}to{opacity:1;transform:scale(1)}}
+.proof-source{
+  margin-top:44px;padding-top:18px;border-top:1px solid var(--rule);
+  font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);letter-spacing:0.03em;
+}
 
-    /* ── SÍMBOLOS FLUTUANTES (BACKGROUND) ── */
-    .floating-symbols {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      overflow: hidden;
-    }
-    .symbol {
-      position: absolute;
-      font-family: 'JetBrains Mono', monospace;
-      color: rgba(180,165,140,0.15);
-      font-size: 3rem;
-      user-select: none;
-      animation: floatUp 20s linear infinite;
-    }
-    @keyframes floatUp {
-      0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
-      10% { opacity: 1; }
-      90% { opacity: 1; }
-      100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
-    }
+/* ---------- editor ---------- */
+.editor{padding-top:40px;animation:rise .35s ease both}
+.editor h2{font-size:26px;font-weight:600;margin:26px 0 6px}
+.editor .hint{font-size:14.5px;color:var(--ink-soft);margin-bottom:30px}
+.editor .hint code{font-family:var(--mono);font-size:12.5px;background:var(--paper-deep);padding:1px 5px;border-radius:2px}
+.field{margin-bottom:22px}
+.field label{
+  display:block;font-family:var(--mono);font-size:11.5px;letter-spacing:0.08em;
+  text-transform:uppercase;color:var(--ink-soft);margin-bottom:7px;
+}
+.field label .req{color:var(--editorial)}
+.field input[type=text],.field textarea,.field select{
+  width:100%;border:1px solid var(--rule);background:#fff;
+  padding:10px 13px;font-size:16px;border-radius:2px;
+}
+.field textarea{min-height:120px;resize:vertical;line-height:1.6}
+.field textarea.tall{min-height:240px}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:640px){.field-row{grid-template-columns:1fr}}
+.preview-box{
+  border:1px dashed var(--rule);background:var(--paper-deep);
+  padding:18px 20px;margin-top:10px;border-radius:2px;min-height:54px;
+}
+.preview-box .ph{font-family:var(--mono);font-size:12px;color:var(--ink-soft)}
+.editor-actions{display:flex;gap:10px;margin-top:34px;flex-wrap:wrap}
 
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.2rem 4rem;
-      background: rgba(249, 246, 240, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(212, 204, 189, 0.5);
-      transition: padding 0.3s ease, background 0.3s ease;
-    }
-    nav.scrolled { padding: 0.8rem 4rem; background: rgba(249, 246, 240, 0.95); box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
+/* ---------- rodapé ---------- */
+footer{
+  margin-top:70px;padding-top:22px;border-top:3px double var(--ink);
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:center;
+  font-family:var(--mono);font-size:12px;color:var(--ink-soft);letter-spacing:0.04em;
+}
+.footer-actions{display:flex;gap:8px}
 
-    .nav-logo {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--accent);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-    }
-
-    .nav-links { display: flex; gap: 3rem; list-style: none; }
-    .nav-links a {
-      font-size: 0.95rem;
-      color: var(--muted);
-      text-decoration: none;
-      letter-spacing: 0.05em;
-      transition: color 0.3s;
-      position: relative;
-      padding: 0.5rem 0;
-    }
-    .nav-links a::after {
-      content: ''; position: absolute;
-      bottom: 0; left: 0;
-      width: 0; height: 1px;
-      background: var(--accent);
-      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .nav-links a:hover { color: var(--accent); }
-    .nav-links a:hover::after { width: 100%; }
-
-    /* ── HERO ── */
-    .hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      padding: 6rem 4rem 4rem;
-      gap: 5rem;
-      position: relative;
-      z-index: 1;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    .hero-label {
-      display: inline-block;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1.5rem;
-      padding: 0.4rem 1rem;
-      border: 1px solid var(--accent-glow);
-      background: rgba(155, 34, 34, 0.03);
-      border-radius: 20px;
-      opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s 0.2s forwards cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .hero-name {
-      font-size: clamp(3.5rem, 6vw, 5.5rem);
-      font-weight: 600;
-      line-height: 1.05;
-      color: var(--ink);
-      margin-bottom: 0.5rem;
-      opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s 0.4s forwards cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .hero-title {
-      font-size: 1.4rem;
-      font-style: italic;
-      color: var(--muted);
-      margin-bottom: 2.5rem;
-      opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s 0.6s forwards cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .hero-desc {
-      font-size: 1.15rem;
-      color: var(--ink-light);
-      max-width: 480px;
-      line-height: 1.8;
-      border-left: 2px solid var(--accent);
-      padding-left: 1.5rem;
-      opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s 0.8s forwards cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .hero-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 1rem;
-      margin-top: 3rem;
-      padding: 1rem 2.5rem;
-      background: transparent;
-      border: 1px solid var(--accent);
-      color: var(--accent);
-      text-decoration: none;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      position: relative;
-      overflow: hidden;
-      opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s 1s forwards cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .hero-cta::before {
-      content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-      background: var(--accent); transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1); z-index: -1;
-    }
-    .hero-cta:hover { color: var(--paper); border-color: var(--accent); }
-    .hero-cta:hover::before { left: 0; }
-
-    /* MATH BOARD - TERMINAL INTERATIVO */
-    .hero-visual {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0; transform: scale(0.95); animation: fadeInScale 1.2s 1s forwards cubic-bezier(0.16, 1, 0.3, 1);
-      perspective: 1000px; /* Para efeito tilt */
-    }
-
-    .math-board {
-      width: 100%;
-      max-width: 500px;
-      aspect-ratio: 4/3.2;
-      background: var(--board-bg);
-      border: 1px solid var(--board-border);
-      border-radius: 8px;
-      padding: 2.5rem;
-      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4), inset 0 0 0 1px rgba(255,255,255,0.05);
-      position: relative;
-      overflow: hidden;
-      transform-style: preserve-3d;
-      transition: transform 0.1s ease-out;
-    }
-
-    .math-board::before {
-      content: ''; position: absolute; inset: 0;
-      background: radial-gradient(ellipse at top left, rgba(255,255,255,0.08), transparent 60%);
-      pointer-events: none;
-    }
-
-    /* Brilho dinâmico do terminal */
-    .math-board-glow {
-      position: absolute; width: 300px; height: 300px;
-      background: radial-gradient(circle, rgba(174, 216, 160, 0.15) 0%, transparent 70%);
-      top: -150px; left: -150px; pointer-events: none; transition: transform 0.1s ease-out;
-    }
-
-    .terminal-header {
-      display: flex; gap: 8px; margin-bottom: 2rem;
-    }
-    .terminal-dot { width: 12px; height: 12px; border-radius: 50%; }
-    .terminal-dot.r { background: #ff5f56; }
-    .terminal-dot.y { background: #ffbd2e; }
-    .terminal-dot.g { background: #27c93f; }
-
-    .board-content {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: clamp(0.8rem, 1.5vw, 1rem);
-      line-height: 1.8;
-      color: var(--board-text);
-      display: flex; flex-direction: column; gap: 0.5rem;
-    }
-    .board-content span.comment { color: rgba(255,255,255,0.3); font-size: 0.85em; }
-    .board-content span.math { color: var(--board-accent); text-shadow: 0 0 10px rgba(174, 216, 160, 0.3); }
-    .cursor-blink { display: inline-block; width: 8px; height: 1em; background: var(--board-accent); vertical-align: middle; animation: blink 1s step-end infinite; }
-    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
-    /* ── DIVIDER ── */
-    .section-divider {
-      display: flex; align-items: center; gap: 1.5rem; padding: 0 4rem; margin: 4rem 0; position: relative; z-index: 1;
-    }
-    .section-divider span {
-      font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--muted); letter-spacing: 0.2em; text-transform: uppercase;
-    }
-    .section-divider::before, .section-divider::after {
-      content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--rule), transparent);
-    }
-
-    /* ── SECTIONS ── */
-    section { position: relative; z-index: 1; padding: 5rem 4rem; max-width: 1200px; margin: 0 auto; }
-
-    .section-header { display: flex; align-items: baseline; gap: 1.5rem; margin-bottom: 4rem; position: relative; }
-    .section-num {
-      font-family: 'JetBrains Mono', monospace; font-size: 1rem; color: var(--accent); font-weight: 700; opacity: 0.5;
-    }
-    .section-title { font-size: 2.8rem; font-weight: 600; color: var(--ink); }
-
-    /* ── ABOUT ── */
-    .about-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 6rem; align-items: center; }
-    .about-text p { font-size: 1.2rem; margin-bottom: 1.5rem; color: var(--ink-light); }
-    
-    .stats-container { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-    .stat-item { padding: 2rem; background: var(--paper-dark); border-radius: 8px; text-align: center; border: 1px solid transparent; transition: all 0.3s ease; }
-    .stat-item:hover { transform: translateY(-5px); border-color: var(--accent); background: var(--paper); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-    .stat-number { font-size: 3.5rem; font-weight: 600; color: var(--accent); line-height: 1; margin-bottom: 0.5rem; }
-    .stat-label { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
-
-    /* ── AREAS (Cards com Efeito Spotlight e Tilt) ── */
-    .areas-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; perspective: 1000px; }
-    
-    .area-card {
-      position: relative;
-      background: rgba(255, 255, 255, 0.5);
-      border: 1px solid var(--rule);
-      border-radius: 12px;
-      padding: 2.5rem;
-      transform-style: preserve-3d;
-      transition: border-color 0.3s, box-shadow 0.3s;
-      overflow: hidden;
-      cursor: none; /* Deixa o cursor customizado brilhar */
-    }
-    
-    /* Fundo dinâmico para o spotlight */
-    .area-card::before {
-      content: ''; position: absolute; top: var(--y, 0); left: var(--x, 0);
-      transform: translate(-50%, -50%); width: 400px; height: 400px;
-      background: radial-gradient(circle, rgba(155, 34, 34, 0.08) 0%, transparent 60%);
-      opacity: 0; transition: opacity 0.4s; pointer-events: none; z-index: 0;
-    }
-    .area-card:hover::before { opacity: 1; }
-    .area-card:hover { border-color: var(--accent); box-shadow: 0 20px 40px rgba(0,0,0,0.04); }
-
-    .area-content { position: relative; z-index: 1; transform: translateZ(30px); /* Efeito 3D do Tilt */ }
-    .area-symbol { font-family: 'JetBrains Mono', monospace; font-size: 2rem; color: var(--accent); margin-bottom: 1.2rem; display: block; }
-    .area-name { font-size: 1.4rem; font-weight: 600; margin-bottom: 0.8rem; color: var(--ink); }
-    .area-desc { font-size: 1.05rem; color: var(--muted); line-height: 1.6; }
-
-    /* ── FORMAÇÃO (Timeline animada) ── */
-    .timeline { position: relative; padding-left: 3rem; margin-top: 2rem; }
-    .timeline-line { position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--rule); }
-    .timeline-progress { position: absolute; left: 0; top: 0; width: 2px; background: var(--accent); height: 0%; transition: height 0.5s ease-out; }
-
-    .timeline-item { position: relative; margin-bottom: 4rem; }
-    .timeline-item::before {
-      content: ''; position: absolute; left: -3.35rem; top: 0.5rem; width: 14px; height: 14px;
-      border-radius: 50%; background: var(--paper); border: 2px solid var(--accent); z-index: 2; transition: all 0.3s;
-    }
-    .timeline-item:hover::before { background: var(--accent); box-shadow: 0 0 15px var(--accent-glow); transform: scale(1.2); }
-    
-    .timeline-year { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--accent); letter-spacing: 0.1em; font-weight: 700; margin-bottom: 0.5rem; }
-    .timeline-degree { font-size: 1.5rem; font-weight: 600; margin: 0.2rem 0; color: var(--ink); }
-    .timeline-institution { font-style: italic; color: var(--muted); font-size: 1.1rem; }
-
-    /* ── CONTATO ── */
-    .contact-wrapper { position: relative; padding: 2px; background: linear-gradient(135deg, var(--accent), var(--ink)); border-radius: 16px; overflow: hidden; }
-    .contact-block { background: var(--ink); color: var(--paper); padding: 5rem 4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; border-radius: 14px; position: relative; overflow: hidden; }
-    .contact-block::before { content: ''; position: absolute; top: 0; right: 0; width: 100%; height: 100%; background: radial-gradient(circle at top right, rgba(155, 34, 34, 0.2), transparent 50%); pointer-events: none; }
-
-    .contact-title { font-size: 3rem; font-weight: 600; margin-bottom: 1rem; line-height: 1.1; }
-    .contact-sub { color: rgba(249, 246, 240, 0.7); font-style: italic; font-size: 1.2rem; }
-
-    .contact-info { display: flex; flex-direction: column; gap: 1.8rem; }
-    .contact-row { display: flex; align-items: center; gap: 1.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.95rem; color: rgba(249, 246, 240, 0.9); transition: transform 0.2s; }
-    .contact-row:hover { transform: translateX(10px); }
-    .contact-row .label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); min-width: 80px; padding: 0.3rem 0.8rem; border: 1px solid rgba(155, 34, 34, 0.5); border-radius: 20px; text-align: center; }
-    .contact-link { color: inherit; text-decoration: none; position: relative; }
-    .contact-link::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1px; background: var(--accent); transition: width 0.3s; }
-    .contact-link:hover::after { width: 100%; }
-
-    /* ── FOOTER ── */
-    footer { position: relative; z-index: 1; text-align: center; padding: 3rem; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--muted); letter-spacing: 0.1em; border-top: 1px solid var(--rule); margin-top: 4rem; }
-
-    /* ── ANIMATIONS (Keyframes) ── */
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes fadeInScale { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-
-    /* Scroll reveal classes */
-    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-    .delay-1 { transition-delay: 0.1s; } .delay-2 { transition-delay: 0.2s; } .delay-3 { transition-delay: 0.3s; }
-
-    /* ── RESPONSIVO ── */
-    @media (max-width: 992px) {
-      .hero, .about-grid, .contact-block { grid-template-columns: 1fr; }
-      .hero-visual { order: -1; margin-bottom: 2rem; }
-    }
-    @media (max-width: 768px) {
-      nav { padding: 1rem 1.5rem; flex-direction: column; gap: 1rem; }
-      nav.scrolled { padding: 1rem 1.5rem; }
-      .nav-links { gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
-      .hero { padding: 8rem 2rem 4rem; text-align: center; }
-      .hero-desc { margin: 0 auto; text-align: left; }
-      section, .section-divider { padding: 3rem 1.5rem; }
-      .contact-block { padding: 3rem 2rem; }
-      .contact-row { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
-    }
-  </style>
+.toast{
+  position:fixed;bottom:26px;left:50%;transform:translateX(-50%);
+  background:var(--ink);color:var(--paper);font-family:var(--mono);font-size:13px;
+  padding:10px 20px;border-radius:2px;z-index:60;opacity:0;pointer-events:none;
+  transition:opacity .25s,transform .25s;letter-spacing:0.03em;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(-4px)}
+</style>
 </head>
 <body>
 
-<div class="cursor-dot"></div>
-<div class="cursor-outline"></div>
-
-<div class="progress-bar" id="progressBar"></div>
-
-<div class="floating-symbols" id="floatingSymbols"></div>
-
-<nav id="navbar">
-  <span class="nav-logo hover-target">Prof. João Silva</span>
-  <ul class="nav-links">
-    <li><a href="#sobre" class="hover-target">Sobre</a></li>
-    <li><a href="#areas" class="hover-target">Áreas</a></li>
-    <li><a href="#formacao" class="hover-target">Formação</a></li>
-    <li><a href="#contato" class="hover-target">Contato</a></li>
-  </ul>
-</nav>
-
-<div class="hero">
-  <div class="hero-text">
-    <span class="hero-label">Professor & Pesquisador</span>
-    <h1 class="hero-name">A Matemática<br>em sua Essência.</h1>
-    <p class="hero-title">Doutor em Matemática Pura · UNICAMP</p>
-    <p class="hero-desc">
-      Dedicado ao ensino rigoroso e apaixonado. Da teoria elementar que molda a intuição, às abstrações avançadas que revelam as estruturas do universo.
-    </p>
-    <a href="#contato" class="hero-cta hover-target">Iniciar Diálogo</a>
-  </div>
-
-  <div class="hero-visual">
-    <div class="math-board hover-target" id="mathBoard">
-      <div class="math-board-glow" id="boardGlow"></div>
-      <div class="terminal-header">
-        <div class="terminal-dot r"></div>
-        <div class="terminal-dot y"></div>
-        <div class="terminal-dot g"></div>
+<div class="frame">
+  <header class="masthead">
+    <div class="masthead-left">
+      <div class="tombstone" aria-hidden="true"></div>
+      <div>
+        <h1>Repositório de<br>Demonstrações</h1>
+        <p class="sub">acervo pessoal · c.q.d.</p>
       </div>
-      <div class="board-content" id="typedContent">
-        </div>
     </div>
-  </div>
+    <div class="masthead-stats" id="stats"></div>
+  </header>
+
+  <div id="app"></div>
+
+  <footer>
+    <span>cada demonstração termina em ∎</span>
+    <div class="footer-actions">
+      <button class="btn ghost small" id="btn-export">Exportar acervo (.json)</button>
+      <button class="btn ghost small" id="btn-import">Importar</button>
+      <input type="file" id="file-import" accept=".json" hidden>
+    </div>
+  </footer>
 </div>
 
-<div class="section-divider"><span>§ I. Gênese</span></div>
-
-<section id="sobre">
-  <div class="section-header reveal">
-    <span class="section-num">01</span>
-    <h2 class="section-title">Sobre o Método</h2>
-  </div>
-  <div class="about-grid">
-    <div class="about-text reveal delay-1">
-      <p>
-        Com mais de 15 anos de jornada acadêmica, percebi que a matemática frequentemente sofre de um problema de comunicação. Meu objetivo é traduzir a complexidade sem perder o rigor formal.
-      </p>
-      <p>
-        Uma demonstração não é apenas uma prova de que algo funciona; é uma história lógica. Em minhas aulas, construímos o conhecimento a partir dos axiomas, combinando intuição geométrica com precisão algébrica.
-      </p>
-      <p>
-        Seja preparando mentes brilhantes para a IMO (International Mathematical Olympiad) ou guiando universitários pelos labirintos do Cálculo Tensorial, o foco é sempre o "porquê" antes do "como".
-      </p>
-    </div>
-    <div class="stats-container reveal delay-2">
-      <div class="stat-item hover-target">
-        <div class="stat-number">15+</div>
-        <div class="stat-label">Anos de Ensino</div>
-      </div>
-      <div class="stat-item hover-target">
-        <div class="stat-number">1k+</div>
-        <div class="stat-label">Horas de Mentoria</div>
-      </div>
-      <div class="stat-item hover-target">
-        <div class="stat-number">12</div>
-        <div class="stat-label">Medalhistas OBM/IMO</div>
-      </div>
-      <div class="stat-item hover-target">
-        <div class="stat-number">∞</div>
-        <div class="stat-label">Paixão pelo Rigor</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"><span>§ II. Domínios</span></div>
-
-<section id="areas">
-  <div class="section-header reveal">
-    <span class="section-num">02</span>
-    <h2 class="section-title">Áreas de Atuação</h2>
-  </div>
-  <div class="areas-grid">
-    <div class="area-card reveal hover-target tilt-card">
-      <div class="area-content">
-        <span class="area-symbol">∫</span>
-        <div class="area-name">Cálculo & Análise</div>
-        <p class="area-desc">Estudo profundo de limites, derivadas, integrais, convergência de séries e análise real na reta e no Rn.</p>
-      </div>
-    </div>
-    <div class="area-card reveal delay-1 hover-target tilt-card">
-      <div class="area-content">
-        <span class="area-symbol">A·x = λ·x</span>
-        <div class="area-name">Álgebra Linear</div>
-        <p class="area-desc">Espaços vetoriais, transformações, diagonalização e formas canônicas com foco em abstração e aplicações.</p>
-      </div>
-    </div>
-    <div class="area-card reveal delay-2 hover-target tilt-card">
-      <div class="area-content">
-        <span class="area-symbol">∀x ∃y</span>
-        <div class="area-name">Matemática Discreta</div>
-        <p class="area-desc">Fundamentos da lógica formal, teoria dos conjuntos, combinatória avançada e teoria dos grafos.</p>
-      </div>
-    </div>
-    <div class="area-card reveal hover-target tilt-card">
-      <div class="area-content">
-        <span class="area-symbol">∂²f / ∂x²</span>
-        <div class="area-name">Equações Diferenciais</div>
-        <p class="area-desc">Modelagem de fenômenos contínuos via EDOs e EDPs, métodos analíticos e qualitativos.</p>
-      </div>
-    </div>
-    <div class="area-card reveal delay-1 hover-target tilt-card">
-      <div class="area-content">
-        <span class="area-symbol">P(A|B)</span>
-        <div class="area-name">Probabilidade</div>
-        <p class="area-desc">Teoria da medida aplicada à probabilidade, variáveis aleatórias, esperança e teoremas limites.</p>
-      </div>
-    </div>
-    <div class="area-card reveal delay-2 hover-target tilt-card">
-      <div class="area-content">
-        <span class="area-symbol">★</span>
-        <div class="area-name">Olimpíadas</div>
-        <p class="area-desc">Treinamento de alta performance para OBMEP, OBM e seletivas internacionais. Foco em problem-solving criativo.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"><span>§ III. Trajetória</span></div>
-
-<section id="formacao">
-  <div class="section-header reveal">
-    <span class="section-num">03</span>
-    <h2 class="section-title">Base Acadêmica</h2>
-  </div>
-  <div class="timeline" id="timelineElement">
-    <div class="timeline-line"></div>
-    <div class="timeline-progress" id="timelineProgress"></div>
-    
-    <div class="timeline-item reveal">
-      <div class="timeline-year">2011 — 2015</div>
-      <div class="timeline-degree">Doutorado em Matemática Pura</div>
-      <div class="timeline-institution">Universidade Estadual de Campinas — UNICAMP</div>
-      <p style="margin-top: 0.5rem; font-size: 0.95rem; color: var(--muted);">Tese: Comportamento Assintótico em Variedades Riemannianas.</p>
-    </div>
-    <div class="timeline-item reveal">
-      <div class="timeline-year">2009 — 2011</div>
-      <div class="timeline-degree">Mestrado em Análise Matemática</div>
-      <div class="timeline-institution">Universidade de São Paulo — USP</div>
-      <p style="margin-top: 0.5rem; font-size: 0.95rem; color: var(--muted);">Dissertação focada em Teoria Espectral de Operadores.</p>
-    </div>
-    <div class="timeline-item reveal">
-      <div class="timeline-year">2005 — 2008</div>
-      <div class="timeline-degree">Licenciatura e Bacharelado em Matemática</div>
-      <div class="timeline-institution">Universidade Federal do Rio de Janeiro — UFRJ</div>
-      <p style="margin-top: 0.5rem; font-size: 0.95rem; color: var(--muted);">Formatura Summa Cum Laude. Medalha de Ouro na OBM Universitária.</p>
-    </div>
-  </div>
-</section>
-
-<div class="section-divider"><span>§ IV. Conexão</span></div>
-
-<section id="contato">
-  <div class="section-header reveal">
-    <span class="section-num">04</span>
-    <h2 class="section-title">Contato</h2>
-  </div>
-  <div class="contact-wrapper reveal">
-    <div class="contact-block">
-      <div>
-        <div class="contact-title">Vamos resolver<br>este problema.</div>
-        <p class="contact-sub">Aulas particulares de alto nível, consultoria acadêmica ou preparação olímpica intensiva.</p>
-      </div>
-      <div class="contact-info">
-        <div class="contact-row hover-target">
-          <span class="label">Email</span>
-          <a href="mailto:joao.silva@matematica.com.br" class="contact-link">joao.silva@matematica.com.br</a>
-        </div>
-        <div class="contact-row hover-target">
-          <span class="label">Telefone</span>
-          <span>(11) 99999-0000</span>
-        </div>
-        <div class="contact-row hover-target">
-          <span class="label">Local</span>
-          <span>São Paulo, SP — Brasil</span>
-        </div>
-        <div class="contact-row hover-target">
-          <span class="label">Online</span>
-          <span>Sessões globais via Zoom / Meet</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  © 2026 Prof. João Silva · O rigor é a liberdade da matemática.
-</footer>
+<div class="toast" id="toast" role="status"></div>
 
 <script>
-  // 1. Cursor Customizado
-  const cursorDot = document.querySelector('.cursor-dot');
-  const cursorOutline = document.querySelector('.cursor-outline');
-  
-  if (matchMedia('(pointer: fine)').matches) {
-    window.addEventListener('mousemove', (e) => {
-      const posX = e.clientX;
-      const posY = e.clientY;
-      
-      // Dot segue imediatamente
-      cursorDot.style.left = `${posX}px`;
-      cursorDot.style.top = `${posY}px`;
-      
-      // Outline segue com leve delay via animação
-      cursorOutline.animate({
-        left: `${posX}px`,
-        top: `${posY}px`
-      }, { duration: 500, fill: "forwards" });
-    });
-  }
+/* ================= estado ================= */
+const STORE_KEY = 'demonstracoes-v1';
+let proofs = [];
+let view = { name: 'list' };           // list | detail | edit
+let filters = { q: '', area: '', tecnica: '' };
 
-  // 2. Animação de Digitação no Terminal Matemático
-  const codeLines = [
-    { text: "// Identidade de Euler", class: "comment" },
-    { text: "e^(iπ) + 1 = 0", class: "math" },
-    { text: "// Teorema Fundamental do Cálculo", class: "comment" },
-    { text: "∫[a,b] f(x)dx = F(b) - F(a)", class: "math" },
-    { text: "// Equação de Schrödinger", class: "comment" },
-    { text: "iℏ ∂Ψ/∂t = ĤΨ", class: "math" }
-  ];
-  
-  const typedContainer = document.getElementById('typedContent');
-  let lineIdx = 0;
-  let charIdx = 0;
-  
-  function typeWriter() {
-    if (lineIdx < codeLines.length) {
-      if (charIdx === 0) {
-        // Cria novo elemento de linha
-        const span = document.createElement('span');
-        span.className = codeLines[lineIdx].class;
-        span.id = `line-${lineIdx}`;
-        typedContainer.appendChild(span);
+const AREAS = ['Álgebra','Análise','Geometria','Teoria dos Números','Combinatória','Probabilidade','Lógica e Conjuntos','Álgebra Linear','Topologia','Outra'];
+const TECNICAS = ['Demonstração direta','Contradição (absurdo)','Contrapositiva','Indução','Construção','Casa dos pombos','Argumento de contagem','Outra'];
+
+const SEEDS = [
+  {
+    id: 'seed-1',
+    titulo: 'Irracionalidade de $\\sqrt{2}$',
+    area: 'Teoria dos Números',
+    tecnica: 'Contradição (absurdo)',
+    enunciado: 'Não existe número racional cujo quadrado seja $2$; isto é, $\\sqrt{2} \\notin \\mathbb{Q}$.',
+    demonstracao: 'Suponha, por absurdo, que $\\sqrt{2} = \\dfrac{p}{q}$ com $p, q \\in \\mathbb{Z}$, $q \\neq 0$ e $\\gcd(p,q)=1$ (fração irredutível).\n\nElevando ao quadrado: $$2 = \\frac{p^2}{q^2} \\implies p^2 = 2q^2.$$\n\nLogo $p^2$ é par, e portanto $p$ é par. Escreva $p = 2k$. Substituindo: $$4k^2 = 2q^2 \\implies q^2 = 2k^2,$$ donde $q$ também é par.\n\nMas então $2 \\mid \\gcd(p,q)$, contradizendo a irredutibilidade da fração. Absurdo.',
+    fonte: 'Atribuída à escola pitagórica; clássica em qualquer curso introdutório.',
+    criadoEm: '2026-06-11'
+  },
+  {
+    id: 'seed-2',
+    titulo: 'Infinitude dos números primos',
+    area: 'Teoria dos Números',
+    tecnica: 'Contradição (absurdo)',
+    enunciado: 'Existem infinitos números primos.',
+    demonstracao: 'Suponha que o conjunto dos primos seja finito: $p_1, p_2, \\dots, p_n$.\n\nConsidere o número $$N = p_1 \\cdot p_2 \\cdots p_n + 1.$$\n\nNenhum $p_i$ divide $N$, pois a divisão de $N$ por qualquer $p_i$ deixa resto $1$. Mas todo inteiro maior que $1$ tem algum fator primo. Logo $N$ possui um fator primo que não está na lista — contradição com a hipótese de que a lista era completa.',
+    fonte: 'Euclides, *Elementos*, Livro IX, Proposição 20.',
+    criadoEm: '2026-06-11'
+  },
+  {
+    id: 'seed-3',
+    titulo: 'Soma dos ângulos internos de um polígono convexo',
+    area: 'Geometria',
+    tecnica: 'Indução',
+    enunciado: 'A soma dos ângulos internos de um polígono convexo de $n$ lados ($n \\geq 3$) é $S_n = (n-2)\\cdot 180^{\\circ}$.',
+    demonstracao: '**Base** ($n = 3$): a soma dos ângulos internos de um triângulo é $180^{\\circ} = (3-2)\\cdot 180^{\\circ}$. ✓\n\n**Passo indutivo**: suponha o resultado válido para todo polígono convexo de $k$ lados. Seja $P$ um polígono convexo de $k+1$ lados, com vértices $V_1, V_2, \\dots, V_{k+1}$.\n\nTrace a diagonal $V_1V_3$. Ela divide $P$ em um triângulo $V_1V_2V_3$ e um polígono convexo $V_1V_3V_4\\dots V_{k+1}$ de $k$ lados. A soma dos ângulos de $P$ é a soma dos ângulos das duas peças: $$S_{k+1} = 180^{\\circ} + (k-2)\\cdot 180^{\\circ} = \\big((k+1)-2\\big)\\cdot 180^{\\circ}.$$\n\nPelo princípio da indução, vale para todo $n \\geq 3$.',
+    fonte: 'Geometria plana elementar.',
+    criadoEm: '2026-06-11'
+  }
+];
+
+/* ================= util ================= */
+const $ = sel => document.querySelector(sel);
+const app = $('#app');
+const esc = s => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const uid = () => 'p-' + Date.now().toString(36) + Math.random().toString(36).slice(2,7);
+const today = () => new Date().toISOString().slice(0,10);
+const fmtDate = iso => { try { const [y,m,d] = iso.split('-'); return `${d}/${m}/${y}`; } catch { return iso; } };
+
+function toast(msg){
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toast._h);
+  toast._h = setTimeout(()=>t.classList.remove('show'), 2400);
+}
+
+/* texto → HTML: parágrafos, **negrito**, *itálico*; LaTeX fica para o KaTeX */
+function richText(src){
+  return esc(src).split(/\n{2,}/).map(par =>
+    '<p>' + par
+      .replace(/\n/g,'<br>')
+      .replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>')
+      .replace(/\*([^*\n]+)\*/g,'<em>$1</em>')
+    + '</p>'
+  ).join('');
+}
+
+function renderMath(el){
+  if (typeof renderMathInElement !== 'function') return;
+  renderMathInElement(el, {
+    delimiters: [
+      {left:'$$', right:'$$', display:true},
+      {left:'$', right:'$', display:false},
+      {left:'\\[', right:'\\]', display:true},
+      {left:'\\(', right:'\\)', display:false}
+    ],
+    throwOnError: false
+  });
+}
+
+/* ================= armazenamento ================= */
+async function loadProofs(){
+  try {
+    const res = await window.storage.get(STORE_KEY);
+    proofs = res ? JSON.parse(res.value) : null;
+  } catch { proofs = null; }
+  if (!Array.isArray(proofs)) {
+    proofs = SEEDS.slice();
+    saveProofs(false);
+  }
+}
+async function saveProofs(notify = true){
+  try {
+    const r = await window.storage.set(STORE_KEY, JSON.stringify(proofs));
+    if (!r && notify) toast('Não foi possível salvar agora.');
+    return !!r;
+  } catch {
+    if (notify) toast('Não foi possível salvar agora.');
+    return false;
+  }
+}
+
+/* ================= cabeçalho / estatísticas ================= */
+function renderStats(){
+  const areas = new Set(proofs.map(p=>p.area).filter(Boolean));
+  $('#stats').innerHTML =
+    `<b>${proofs.length}</b> demonstraç${proofs.length===1?'ão':'ões'}<br>` +
+    `<b>${areas.size}</b> área${areas.size===1?'':'s'} da matemática`;
+}
+
+/* ================= vista: lista ================= */
+function renderList(){
+  const q = filters.q.trim().toLowerCase();
+  const visible = proofs.filter(p => {
+    if (filters.area && p.area !== filters.area) return false;
+    if (filters.tecnica && p.tecnica !== filters.tecnica) return false;
+    if (q) {
+      const blob = `${p.titulo} ${p.enunciado} ${p.demonstracao} ${p.area} ${p.tecnica} ${p.fonte}`.toLowerCase();
+      if (!blob.includes(q)) return false;
+    }
+    return true;
+  });
+
+  const areasInUse = [...new Set(proofs.map(p=>p.area).filter(Boolean))].sort();
+  const tecInUse = [...new Set(proofs.map(p=>p.tecnica).filter(Boolean))].sort();
+
+  app.innerHTML = `
+    <div class="toolbar">
+      <input type="search" id="f-q" placeholder="Buscar por título, enunciado, fonte…" value="${esc(filters.q)}" aria-label="Buscar demonstrações">
+      <select id="f-area" aria-label="Filtrar por área">
+        <option value="">Todas as áreas</option>
+        ${areasInUse.map(a=>`<option ${filters.area===a?'selected':''}>${esc(a)}</option>`).join('')}
+      </select>
+      <select id="f-tec" aria-label="Filtrar por técnica">
+        <option value="">Todas as técnicas</option>
+        ${tecInUse.map(t=>`<option ${filters.tecnica===t?'selected':''}>${esc(t)}</option>`).join('')}
+      </select>
+      <button class="btn" id="btn-new">+ Nova demonstração</button>
+    </div>
+    <div class="list">
+      ${visible.length ? visible.map(p => {
+        const n = proofs.indexOf(p) + 1;
+        return `
+        <article class="entry" data-id="${p.id}" tabindex="0" role="button" aria-label="Abrir: ${esc(p.titulo)}">
+          <div class="entry-margin">
+            <span class="num">${String(n).padStart(2,'0')}</span>
+            ${fmtDate(p.criadoEm || '')}
+          </div>
+          <div>
+            <h2 class="entry-title">${esc(p.titulo)}</h2>
+            ${p.enunciado ? `<p class="entry-statement">${esc(p.enunciado)}</p>` : ''}
+            <div class="entry-tags">
+              ${p.area ? `<span class="tag area">${esc(p.area)}</span>` : ''}
+              ${p.tecnica ? `<span class="tag">${esc(p.tecnica)}</span>` : ''}
+            </div>
+          </div>
+        </article>`;
+      }).join('') : `
+        <div class="empty">
+          <div class="glyph">∎</div>
+          <h2>${proofs.length ? 'Nada encontrado com esses filtros' : 'O acervo está vazio'}</h2>
+          <p>${proofs.length ? 'Ajuste a busca ou limpe os filtros para ver tudo.' : 'Registre a primeira demonstração que marcou sua vida matemática.'}</p>
+          ${proofs.length ? '' : '<button class="btn" id="btn-new-empty">+ Nova demonstração</button>'}
+        </div>`}
+    </div>`;
+
+  renderMath(app.querySelector('.list'));
+
+  $('#f-q').addEventListener('input', e => { filters.q = e.target.value; renderList(); });
+  $('#f-area').addEventListener('change', e => { filters.area = e.target.value; renderList(); });
+  $('#f-tec').addEventListener('change', e => { filters.tecnica = e.target.value; renderList(); });
+  $('#btn-new')?.addEventListener('click', () => go({ name:'edit' }));
+  $('#btn-new-empty')?.addEventListener('click', () => go({ name:'edit' }));
+  app.querySelectorAll('.entry').forEach(el => {
+    const open = () => go({ name:'detail', id: el.dataset.id });
+    el.addEventListener('click', open);
+    el.addEventListener('keydown', e => { if (e.key==='Enter'||e.key===' ') { e.preventDefault(); open(); } });
+  });
+
+  /* restaurar foco da busca quando o usuário está digitando */
+  if (document.activeElement === document.body && filters.q) {
+    const inp = $('#f-q'); inp.focus(); inp.setSelectionRange(inp.value.length, inp.value.length);
+  }
+}
+
+/* ================= vista: detalhe ================= */
+function renderDetail(id){
+  const p = proofs.find(x => x.id === id);
+  if (!p) return go({ name:'list' });
+  const n = proofs.indexOf(p) + 1;
+
+  app.innerHTML = `
+    <div class="proof-page">
+      <button class="crumb" id="back">← voltar ao acervo</button>
+      <div class="proof-head">
+        <div>
+          <div class="proof-kicker">Demonstração nº ${String(n).padStart(2,'0')}</div>
+          <h2 class="proof-title">${esc(p.titulo)}</h2>
+        </div>
+        <div class="proof-actions">
+          <button class="btn ghost small" id="edit">Editar</button>
+          <button class="btn danger small" id="del">Excluir</button>
+        </div>
+      </div>
+      <div class="proof-meta">
+        ${p.area ? `<span>área · <b>${esc(p.area)}</b></span>` : ''}
+        ${p.tecnica ? `<span>técnica · <b>${esc(p.tecnica)}</b></span>` : ''}
+        ${p.criadoEm ? `<span>registro · <b>${fmtDate(p.criadoEm)}</b></span>` : ''}
+      </div>
+      ${p.enunciado ? `
+      <div class="thm-block">
+        <span class="label">Teorema.</span><span class="body">${richText(p.enunciado).replace(/^<p>|<\/p>$/g,'')}</span>
+      </div>` : ''}
+      <div class="proof-body">
+        <span class="label">Demonstração.</span>
+        ${richText(p.demonstracao)}
+        <div class="qed" aria-label="fim da demonstração"><div class="stone"></div></div>
+      </div>
+      ${p.fonte ? `<div class="proof-source">onde vi · ${richText(p.fonte).replace(/<\/?p>/g,'')}</div>` : ''}
+    </div>`;
+
+  renderMath(app);
+  $('#back').addEventListener('click', () => go({ name:'list' }));
+  $('#edit').addEventListener('click', () => go({ name:'edit', id }));
+  $('#del').addEventListener('click', async () => {
+    if (!confirm(`Excluir “${p.titulo.replace(/\$/g,'')}” do acervo? Esta ação não pode ser desfeita.`)) return;
+    proofs = proofs.filter(x => x.id !== id);
+    await saveProofs();
+    toast('Demonstração excluída.');
+    go({ name:'list' });
+  });
+}
+
+/* ================= vista: editor ================= */
+function renderEditor(id){
+  const p = id ? proofs.find(x => x.id === id) : null;
+
+  const selOpts = (list, current) => {
+    const base = list.map(o => `<option ${current===o?'selected':''}>${esc(o)}</option>`).join('');
+    const extra = current && !list.includes(current) ? `<option selected>${esc(current)}</option>` : '';
+    return base + extra;
+  };
+
+  app.innerHTML = `
+    <div class="editor">
+      <button class="crumb" id="back">← voltar sem salvar</button>
+      <h2>${p ? 'Editar demonstração' : 'Nova demonstração'}</h2>
+      <p class="hint">Use LaTeX livremente: <code>$x^2$</code> para fórmulas na linha e <code>$$ … $$</code> para destacadas. <code>**negrito**</code> e <code>*itálico*</code> também funcionam. Parágrafos separados por linha em branco.</p>
+
+      <div class="field">
+        <label for="e-titulo">Título do teorema <span class="req">*</span></label>
+        <input type="text" id="e-titulo" value="${esc(p?.titulo || '')}" placeholder="ex.: Desigualdade das médias (MA ≥ MG)">
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="e-area">Área</label>
+          <select id="e-area">${selOpts(AREAS, p?.area || '')}</select>
+        </div>
+        <div class="field">
+          <label for="e-tec">Técnica de demonstração</label>
+          <select id="e-tec">${selOpts(TECNICAS, p?.tecnica || '')}</select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="e-enun">Enunciado</label>
+        <textarea id="e-enun" placeholder="O enunciado preciso do teorema…">${esc(p?.enunciado || '')}</textarea>
+      </div>
+
+      <div class="field">
+        <label for="e-dem">Demonstração <span class="req">*</span></label>
+        <textarea id="e-dem" class="tall" placeholder="A demonstração completa, passo a passo…">${esc(p?.demonstracao || '')}</textarea>
+      </div>
+
+      <div class="field">
+        <label>Pré-visualização</label>
+        <div class="preview-box" id="preview"><span class="ph">A demonstração renderizada aparecerá aqui enquanto você digita.</span></div>
+      </div>
+
+      <div class="field">
+        <label for="e-fonte">Onde vi esta demonstração</label>
+        <input type="text" id="e-fonte" value="${esc(p?.fonte || '')}" placeholder="ex.: aula do prof. X, livro do Elon, vídeo, prova de concurso…">
+      </div>
+
+      <div class="editor-actions">
+        <button class="btn" id="save">${p ? 'Salvar alterações' : 'Adicionar ao acervo'}</button>
+        <button class="btn ghost" id="cancel">Cancelar</button>
+      </div>
+    </div>`;
+
+  const back = () => go(p ? { name:'detail', id } : { name:'list' });
+  $('#back').addEventListener('click', back);
+  $('#cancel').addEventListener('click', back);
+
+  /* pré-visualização ao vivo */
+  let pvTimer;
+  const updatePreview = () => {
+    clearTimeout(pvTimer);
+    pvTimer = setTimeout(() => {
+      const en = $('#e-enun').value.trim();
+      const dm = $('#e-dem').value.trim();
+      const box = $('#preview');
+      if (!en && !dm) {
+        box.innerHTML = '<span class="ph">A demonstração renderizada aparecerá aqui enquanto você digita.</span>';
+        return;
       }
-      
-      const currentLineElement = document.getElementById(`line-${lineIdx}`);
-      const currentText = codeLines[lineIdx].text;
-      
-      if (charIdx < currentText.length) {
-        currentLineElement.innerHTML += currentText.charAt(charIdx);
-        charIdx++;
-        setTimeout(typeWriter, Math.random() * 50 + 30); // Velocidade variável de digitação
-      } else {
-        // Quebra de linha após terminar a string
-        typedContainer.appendChild(document.createElement('br'));
-        lineIdx++;
-        charIdx = 0;
-        setTimeout(typeWriter, 400); // Pausa entre linhas
-      }
+      box.innerHTML =
+        (en ? `<div class="thm-block" style="margin-bottom:18px"><span class="label">Teorema.</span><span class="body">${richText(en).replace(/^<p>|<\/p>$/g,'')}</span></div>` : '') +
+        (dm ? `<div class="proof-body"><span class="label">Demonstração.</span>${richText(dm)}</div>` : '');
+      renderMath(box);
+    }, 350);
+  };
+  $('#e-enun').addEventListener('input', updatePreview);
+  $('#e-dem').addEventListener('input', updatePreview);
+  updatePreview();
+
+  $('#save').addEventListener('click', async () => {
+    const titulo = $('#e-titulo').value.trim();
+    const demonstracao = $('#e-dem').value.trim();
+    if (!titulo) { toast('Dê um título ao teorema.'); $('#e-titulo').focus(); return; }
+    if (!demonstracao) { toast('A demonstração não pode ficar vazia.'); $('#e-dem').focus(); return; }
+
+    const data = {
+      titulo,
+      area: $('#e-area').value,
+      tecnica: $('#e-tec').value,
+      enunciado: $('#e-enun').value.trim(),
+      demonstracao,
+      fonte: $('#e-fonte').value.trim()
+    };
+
+    let targetId;
+    if (p) {
+      Object.assign(p, data);
+      targetId = p.id;
     } else {
-      // Adiciona cursor piscante no final
-      const cursor = document.createElement('span');
-      cursor.className = 'cursor-blink';
-      typedContainer.appendChild(cursor);
+      const novo = { id: uid(), criadoEm: today(), ...data };
+      proofs.unshift(novo);
+      targetId = novo.id;
     }
-  }
-  
-  // Inicia a digitação após delay da animação do hero
-  setTimeout(typeWriter, 1800);
-
-  // 3. Efeito 3D Tilt e Spotlight nos Cards
-  const cards = document.querySelectorAll('.tilt-card');
-  cards.forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left; // x position within the element.
-      const y = e.clientY - rect.top;  // y position within the element.
-      
-      // Update custom properties for Spotlight
-      card.style.setProperty('--x', `${x}px`);
-      card.style.setProperty('--y', `${y}px`);
-      
-      // Calculate Tilt
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      const rotateX = ((y - centerY) / centerY) * -5; // Max rot: 5deg
-      const rotateY = ((x - centerX) / centerX) * 5;
-      
-      card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-    });
-    
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-    });
+    await saveProofs();
+    toast(p ? 'Alterações salvas. ∎' : 'Demonstração registrada. ∎');
+    go({ name:'detail', id: targetId });
   });
+}
 
-  // Brilho interativo no board principal
-  const mathBoard = document.getElementById('mathBoard');
-  const boardGlow = document.getElementById('boardGlow');
-  mathBoard.addEventListener('mousemove', (e) => {
-    const rect = mathBoard.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    boardGlow.style.transform = `translate(${x}px, ${y}px)`;
-    
-    // Tilt sutil no board principal
-    const rotateX = ((y - rect.height/2) / (rect.height/2)) * -2;
-    const rotateY = ((x - rect.width/2) / (rect.width/2)) * 2;
-    mathBoard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-  });
-  mathBoard.addEventListener('mouseleave', () => {
-    mathBoard.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
-  });
-
-  // 4. Efeitos de Scroll (Progresso, Navbar, Timeline e Reveal)
-  const navbar = document.getElementById('navbar');
-  const progressBar = document.getElementById('progressBar');
-  const timelineProgress = document.getElementById('timelineProgress');
-  const timelineElement = document.getElementById('timelineElement');
-  const reveals = document.querySelectorAll('.reveal');
-
-  window.addEventListener('scroll', () => {
-    const scrollPx = document.documentElement.scrollTop;
-    const winHeightPx = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrollPercent = (scrollPx / winHeightPx) * 100;
-    
-    // Barra de progresso top
-    progressBar.style.width = scrollPercent + '%';
-    
-    // Navbar visual
-    if (scrollPx > 50) navbar.classList.add('scrolled');
-    else navbar.classList.remove('scrolled');
-    
-    // Timeline de Formação animando conforme scroll
-    if (timelineElement) {
-      const rect = timelineElement.getBoundingClientRect();
-      const timelineStart = window.innerHeight * 0.8; 
-      if (rect.top < timelineStart) {
-        // Calcula porcentagem vista
-        let progress = ((timelineStart - rect.top) / rect.height) * 100;
-        progress = Math.min(Math.max(progress, 0), 100);
-        timelineProgress.style.height = `${progress}%`;
-      }
+/* ================= exportar / importar ================= */
+$('#btn-export').addEventListener('click', () => {
+  const blob = new Blob([JSON.stringify(proofs, null, 2)], { type:'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `repositorio-demonstracoes-${today()}.json`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+$('#btn-import').addEventListener('click', () => $('#file-import').click());
+$('#file-import').addEventListener('change', async e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  try {
+    const data = JSON.parse(await file.text());
+    if (!Array.isArray(data)) throw new Error();
+    const existing = new Set(proofs.map(p=>p.id));
+    let added = 0;
+    for (const item of data) {
+      if (!item || typeof item.titulo !== 'string' || typeof item.demonstracao !== 'string') continue;
+      const id = (item.id && !existing.has(item.id)) ? item.id : uid();
+      existing.add(id);
+      proofs.push({
+        id,
+        titulo: item.titulo,
+        area: String(item.area || ''),
+        tecnica: String(item.tecnica || ''),
+        enunciado: String(item.enunciado || ''),
+        demonstracao: item.demonstracao,
+        fonte: String(item.fonte || ''),
+        criadoEm: String(item.criadoEm || today())
+      });
+      added++;
     }
-  });
-
-  // Intersection Observer para aparição suave dos elementos
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
-  
-  reveals.forEach(el => revealObserver.observe(el));
-
-  // 5. Background Parallax Gerador de Símbolos
-  const symbolsArray = ['∫', '∑', '∞', 'π', 'Δ', '∇', 'θ', 'λ', 'μ', 'Ω'];
-  const symbolContainer = document.getElementById('floatingSymbols');
-  
-  // Cria símbolos flutuantes aleatórios
-  for (let i = 0; i < 15; i++) {
-    const span = document.createElement('span');
-    span.className = 'symbol';
-    span.innerText = symbolsArray[Math.floor(Math.random() * symbolsArray.length)];
-    // Posição horizontal aleatória
-    span.style.left = `${Math.random() * 100}vw`;
-    // Tamanho aleatório
-    span.style.fontSize = `${Math.random() * 2 + 1}rem`;
-    // Delay aleatório para não subirem juntos
-    span.style.animationDelay = `${Math.random() * 20}s`;
-    // Duração aleatória para velocidades diferentes
-    span.style.animationDuration = `${Math.random() * 15 + 15}s`;
-    symbolContainer.appendChild(span);
+    await saveProofs();
+    toast(`${added} demonstraç${added===1?'ão importada':'ões importadas'}.`);
+    go({ name:'list' });
+  } catch {
+    toast('Arquivo inválido. Use um .json exportado daqui.');
   }
+  e.target.value = '';
+});
 
+/* ================= navegação ================= */
+function go(next){
+  view = next;
+  renderStats();
+  if (view.name === 'detail') renderDetail(view.id);
+  else if (view.name === 'edit') renderEditor(view.id);
+  else renderList();
+  window.scrollTo({ top: 0 });
+}
+
+/* ================= início ================= */
+(async () => {
+  app.innerHTML = '<div class="empty"><div class="glyph">∎</div><h2>Abrindo o acervo…</h2></div>';
+  await loadProofs();
+  go({ name:'list' });
+})();
 </script>
 </body>
 </html>
-   
-  
