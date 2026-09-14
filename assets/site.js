@@ -62,7 +62,7 @@
     function setMotion(paused) {
       document.body.dataset.motion = paused ? "paused" : "running";
       motionButton.setAttribute("aria-pressed", String(paused));
-      motionButton.setAttribute("aria-label", paused ? "Ativar movimento da faixa de Möbius" : "Pausar movimento da faixa de Möbius");
+      motionButton.setAttribute("aria-label", paused ? "Ativar animações do site" : "Pausar animações do site");
       motionButton.title = paused ? "Ativar movimento" : "Pausar movimento";
     }
     setMotion(reducedMotion.matches);
