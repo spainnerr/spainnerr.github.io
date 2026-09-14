@@ -349,3 +349,23 @@ h3 { font-size: 24px; font-weight: 600; line-height: 1.2; letter-spacing: -.7px;
   .about-story, .about-profile, .work-card, .achievement, .timeline-item { break-inside: avoid; }
   .reveal-in { animation: none; }
 }
+
+.button-secondary {
+  color: var(--blue-strong);
+  background: rgba(0, 102, 204, .08);
+  border-color: rgba(0, 102, 204, .18);
+  box-shadow: none;
+}
+
+.button-secondary:hover {
+  background: rgba(0, 102, 204, .13);
+  border-color: rgba(0, 102, 204, .24);
+}
+
+.closing-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 8px;
+}
