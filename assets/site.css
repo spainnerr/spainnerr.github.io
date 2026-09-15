@@ -73,7 +73,7 @@ h1 { font-size: clamp(60px, 6.35vw, 89px); line-height: 1.04; font-weight: 650; 
 .art-spark { position: absolute; font-size: 18px; font-weight: 200; color: #97adc3; }
 .spark-one { left: 12%; top: 16%; } .spark-two { right: 4%; top: 58%; }
 .mobius-figure { position: relative; margin: 0; }
-.mobius-image { width: 115%; max-width: none; height: auto; margin-left: -7.5%; transform-origin: 50% 55%; }
+.mobius-image { width: 115%; max-width: none; height: auto; aspect-ratio: 720 / 620; margin-left: -7.5%; transform-origin: 50% 55%; will-change: transform; }
 body[data-motion="running"] .mobius-image { animation: levitate 8s ease-in-out infinite; }
 @keyframes levitate { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-11px) rotate(2deg); } }
 .mobius-figure figcaption { max-width: 330px; margin: -24px auto 0; position: relative; }
