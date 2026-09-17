@@ -1,5 +1,41 @@
 (() => {
   "use strict";
+  const themeButton = document.querySelector(".theme-toggle");
+  const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
+  let chosenTheme;
+  try { chosenTheme = localStorage.getItem("spainner-theme"); } catch (_) {}
+  function applyTheme(theme) {
+    const dark = theme === "dark";
+    document.documentElement.dataset.theme = dark ? "dark" : "light";
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.content = dark ? "#101216" : "#f5f5f7";
+    if (themeButton) {
+      themeButton.setAttribute("aria-pressed", String(dark));
+      themeButton.setAttribute("aria-label", dark ? "Ativar modo claro" : "Ativar modo escuro");
+      themeButton.title = dark ? "Ativar modo claro" : "Ativar modo escuro";
+    }
+  }
+  function followSystemTheme() {
+    applyTheme(chosenTheme === "dark" || chosenTheme === "light" ? chosenTheme : (systemTheme.matches ? "dark" : "light"));
+  }
+  followSystemTheme();
+  if (themeButton) {
+    themeButton.hidden = false;
+    themeButton.addEventListener("click", () => {
+      chosenTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+      applyTheme(chosenTheme);
+      try { localStorage.setItem("spainner-theme", chosenTheme); } catch (_) {}
+    });
+  }
+  if (systemTheme.addEventListener) systemTheme.addEventListener("change", followSystemTheme);
+  else systemTheme.addListener(followSystemTheme);
+  window.addEventListener("storage", (event) => {
+    if (event.key === "spainner-theme" || event.key === null) {
+      chosenTheme = event.newValue;
+      followSystemTheme();
+    }
+  });
+
   const navigation = document.querySelector(".navigation");
   const menuButton = document.querySelector(".menu-toggle");
   const navLinks = document.getElementById("nav-links");
