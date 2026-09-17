@@ -13,9 +13,18 @@
   <title>Guilherme Spindola · Professor de Matemática</title>
   <link rel="canonical" href="https://spainnerr.github.io/">
   <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
-  <link rel="stylesheet" href="./assets/site.css?v=youtube-1">
+  <script>
+    (() => {
+      let saved;
+      try { saved = localStorage.getItem("spainner-theme"); } catch (_) {}
+      const theme = saved === "dark" || saved === "light" ? saved : (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.dataset.theme = theme;
+      document.querySelector('meta[name="theme-color"]').content = theme === "dark" ? "#101216" : "#f5f5f7";
+    })();
+  </script>
+  <link rel="stylesheet" href="./assets/site.css?v=theme-1">
   <link rel="preload" href="./assets/mobius-studio-3840.webp" as="image" type="image/webp">
-  <script src="./assets/site.js" defer></script>
+  <script src="./assets/site.js?v=theme-1" defer></script>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"Person","name":"Guilherme Spindola","alternateName":"Guilherme “Spainner” Spindola","url":"https://spainnerr.github.io/","jobTitle":"Professor de Matemática","description":"Professor e monitor de Matemática no Colégio GGE, prestador de serviços à editora da instituição e professor no Colégio Cognitivo. Graduando em Licenciatura em Matemática na UFRPE.","worksFor":[{"@type":"EducationalOrganization","name":"Colégio GGE"},{"@type":"EducationalOrganization","name":"Colégio Cognitivo"}],"sameAs":["https://www.linkedin.com/in/guilherme-spindola-a53a47384/"]}
   </script>
@@ -29,6 +38,10 @@
         <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M15.9 10.7C7.5 1.4.6 10.9 5.1 17.9c3.6 5.6 8.8-1.3 13.2-6.2 4.4-4.9 9.7-1.2 9.2 4.2-.5 6.5-7.4 9-14.9.4" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></svg>
         <span>Spainner<span class="wordmark-dot">.</span></span>
       </a>
+      <button class="theme-toggle" type="button" aria-label="Ativar modo escuro" aria-pressed="false" title="Ativar modo escuro" hidden>
+        <svg class="theme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7Z"/></svg>
+        <svg class="theme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/></svg>
+      </button>
       <button class="menu-toggle" type="button" aria-controls="nav-links" aria-expanded="false" hidden>
         <span>Menu</span><span class="menu-lines" aria-hidden="true"></span>
       </button>
