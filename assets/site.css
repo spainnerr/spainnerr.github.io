@@ -81,8 +81,8 @@ body[data-motion="running"] .mobius-image { animation: levitate 8s ease-in-out i
 .figure-controls { display: flex; align-items: start; justify-content: center; gap: 12px; margin-top: 7px; }
 .shape-note { flex: 1; position: relative; }
 .shape-note summary { min-height: 36px; padding: 7px 0; font-size: 11px; color: #55708a; display: flex; align-items: center; justify-content: center; gap: 8px; list-style: none; cursor: pointer; }
-.shape-note summary::-webkit-details-marker, .bio-details summary::-webkit-details-marker { display: none; }
-.shape-note summary span, .bio-details summary span { font-size: 18px; font-weight: 400; transition: transform .2s; }
+.shape-note summary::-webkit-details-marker { display: none; }
+.shape-note summary span { font-size: 18px; font-weight: 400; transition: transform .2s; }
 details[open] > summary span { transform: rotate(45deg); }
 .shape-note p { padding: 16px 18px; border: 1px solid #e0eaf4; border-radius: 16px; background: #f7fbff; font-size: 12px; line-height: 1.65; color: #3f566a; margin-top: 5px; }
 .motion-toggle { width: 36px; height: 36px; min-width: 36px; background: #f1f5f9; border: 1px solid #e6ebf2; border-radius: 50%; display: grid; place-items: center; color: #466785; }
@@ -91,9 +91,7 @@ details[open] > summary span { transform: rotate(45deg); }
 .icon-play { display: none; }
 .motion-toggle[aria-pressed="true"] .icon-play { display: block; }
 .motion-toggle[aria-pressed="true"] .icon-pause { display: none; }
-.institutions { border-top: 1px solid #e8e8ed; display: grid; grid-template-columns: 1fr 1.9fr; gap: 40px; padding-block: 30px 38px; align-items: center; }
-.institutions > p { font-size: 12px; line-height: 1.8; color: #707075; }
-.institutions > p strong { font-weight: 500; color: #4b4b51; }
+.institutions { border-top: 1px solid #e8e8ed; padding-block: 30px 38px; }
 .institution-names { display: flex; gap: 30px; align-items: center; justify-content: space-between; }
 .institution-names > span { font-size: 25px; font-weight: 650; line-height: 1.15; letter-spacing: -.6px; color: #74747a; }
 .institution-detail { display: block; font-size: 8px; letter-spacing: 1.15px; font-weight: 500; margin-top: 8px; color: #707076; }
@@ -124,10 +122,6 @@ h3 { font-size: 24px; font-weight: 600; line-height: 1.2; letter-spacing: -.7px;
 .profile-symbol { color: #729abb; font-family: Georgia, serif; font-size: 32px; line-height: 1; font-weight: 400; }
 .about-profile h3 { font-size: 29px; letter-spacing: -1.05px; line-height: 1.2; margin-top: 36px; margin-bottom: 21px; }
 .about-profile > p { font-size: 15px; line-height: 1.8; color: #676770; margin-bottom: 15px; }
-.bio-details { border-top: 1px solid #e7e7ed; margin-top: 28px; padding-top: 12px; }
-.bio-details summary { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 44px; font-size: 13px; font-weight: 500; color: var(--blue); cursor: pointer; }
-.details-content { padding-top: 10px; }
-.details-content p { font-size: 14px; line-height: 1.8; color: var(--muted); margin-bottom: 15px; }
 .work-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .work-card { background: var(--paper); border-radius: var(--radius); padding: 31px; display: flex; flex-direction: column; min-height: 358px; }
 .work-card-featured { background: #edf5fd; }
@@ -142,12 +136,6 @@ h3 { font-size: 24px; font-weight: 600; line-height: 1.2; letter-spacing: -.7px;
 .work-note { display: flex; align-items: center; gap: 9px; margin-top: auto; padding-top: 24px; font-size: 10px; color: #476a8c; }
 .work-note > span { font-size: 19px; }
 .card-bottom-label { margin-top: auto; padding-top: 28px; font-size: 8px; font-weight: 600; letter-spacing: 1.2px; color: #6b727b; }
-.previous-work { margin-top: 28px; padding: 21px 2px; border-block: 1px solid #e9e9ed; display: flex; align-items: center; justify-content: space-between; gap: 25px; }
-.previous-work > div { display: flex; gap: 10px; align-items: center; font-size: 12px; color: #77777e; }
-.history-dot { width: 5px; height: 5px; flex-shrink: 0; background: #abb8c6; border-radius: 50%; }
-.previous-work > p { display: flex; align-items: baseline; gap: 20px; font-size: 13px; }
-.previous-work strong { font-weight: 550; }
-.previous-work p span { font-size: 12px; color: var(--muted); }
 
 .education-section { background: var(--paper); }
 .education-grid { display: grid; grid-template-columns: .95fr 1fr; gap: 120px; }
@@ -249,8 +237,6 @@ h3 { font-size: 24px; font-weight: 600; line-height: 1.2; letter-spacing: -.7px;
   .orbit-two { width: 91%; left: 4.5%; top: -3%; }
   .mobius-figure figcaption { margin-top: -18px; }
   .institutions { grid-template-columns: 1fr; gap: 20px; padding-top: 23px; padding-bottom: 28px; text-align: center; }
-  .institutions > p { font-size: 11px; line-height: 1.7; }
-  .institutions > p br { display: none; }
   .institution-names { gap: 14px; justify-content: space-around; }
   .institution-names > span { font-size: 22px; }
   .institution-detail { font-size: 7px; letter-spacing: .6px; margin-top: 6px; }
@@ -276,9 +262,6 @@ h3 { font-size: 24px; font-weight: 600; line-height: 1.2; letter-spacing: -.7px;
   .work-card-copy .role { font-size: 13px; margin-bottom: 13px; }
   .work-card-copy > p:last-child { font-size: 14px; }
   .work-note, .card-bottom-label { padding-top: 23px; }
-  .previous-work { flex-direction: column; align-items: start; gap: 11px; padding-block: 20px; }
-  .previous-work > div { font-size: 11px; }
-  .previous-work > p { flex-wrap: wrap; gap: 2px 16px; padding-left: 15px; }
   .education-grid { grid-template-columns: 1fr; gap: 44px; }
   .education-heading h2 { font-size: 44px; margin-top: 18px; }
   .education-heading .blue-text br { display: none; }
@@ -390,7 +373,6 @@ h3 { font-size: 24px; font-weight: 600; line-height: 1.2; letter-spacing: -.7px;
 
 /* Metallic awards and professional profile links. */
 .linkedin-icon, .instagram-icon { width: 20px; height: 20px; flex-shrink: 0; }
-.previous-work > p { padding-left: 0; }
 .achievement-gold, .achievement-bronze {
   position: relative;
   isolation: isolate;
@@ -447,7 +429,7 @@ html[data-theme="dark"] .theme-toggle .theme-moon { display: none; }
 @media screen {
   html[data-theme="dark"] { color-scheme: dark; --page: #101216; --paper: #191d24; --ink: #f1f3f7; --muted: #afb8c5; --line: #39424f; --blue: #75b8ff; --blue-hover: #9acbff; --blue-strong: #9acbff; }
   html[data-theme="dark"] .site-header { background: rgb(16 18 22 / 92%); border-color: var(--line); }
-  html[data-theme="dark"] :is(.nav-links a, .back-to-top, .footer > p, .footer-brand > span, .hero-caption, .institution-detail, .institutions > p, .institutions > p strong, .institution-names > span, .small-index, .figure-label, .shape-note summary, .timeline-label, .timeline-role, .previous-work > div, .card-bottom-label, .achievement-category, .achievement-footnote, .download-caption) { color: var(--muted); }
+  html[data-theme="dark"] :is(.nav-links a, .back-to-top, .footer > p, .footer-brand > span, .hero-caption, .institution-detail, .institution-names > span, .small-index, .figure-label, .shape-note summary, .timeline-label, .timeline-role, .card-bottom-label, .achievement-category, .achievement-footnote, .download-caption) { color: var(--muted); }
   html[data-theme="dark"] :is(.nav-links a:hover, .nav-links a[aria-current="location"], .hero-eyebrow, .closing-content .eyebrow, .timeline-current .timeline-label) { color: var(--blue); }
   html[data-theme="dark"] .nav-links .nav-button { color: var(--blue); background: #203247; }
   html[data-theme="dark"] .navigation[data-enhanced] .nav-links.is-open { background: #191d24; border-color: var(--line); }
@@ -457,7 +439,7 @@ html[data-theme="dark"] .theme-toggle .theme-moon { display: none; }
   html[data-theme="dark"] .button-secondary { color: var(--blue); background: #1d3045; }
   html[data-theme="dark"] .button-secondary:hover { background: #284460; }
   html[data-theme="dark"] .hero-art::before { background: radial-gradient(ellipse at 50% 56%, #183149 0%, #141f2c 42%, transparent 71%); }
-  html[data-theme="dark"] :is(.art-orbit, .institutions, .previous-work, .bio-details, .footer > p) { border-color: var(--line); }
+  html[data-theme="dark"] :is(.art-orbit, .institutions, .footer > p) { border-color: var(--line); }
   html[data-theme="dark"] .art-spark { color: #7296b6; }
   html[data-theme="dark"] :is(.shape-note p, .motion-toggle) { background: #1d2d3d; color: #bddbfa; border-color: #334e69; }
   html[data-theme="dark"] .motion-toggle:hover { background: #2b425b; }
