@@ -32,7 +32,7 @@ svg, img { display: block; max-width: 100%; }
 .site-header { position: sticky; top: 0; z-index: 50; border-bottom: 1px solid rgb(0 0 0 / 5%); background: rgb(255 255 255 / 87%); -webkit-backdrop-filter: saturate(160%) blur(24px); backdrop-filter: saturate(160%) blur(24px); }
 .navigation { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
 .wordmark { display: inline-flex; align-items: center; gap: 9px; font-size: 23px; font-weight: 660; letter-spacing: -1px; white-space: nowrap; }
-.wordmark svg { width: 32px; height: 32px; color: var(--blue); }
+.wordmark-symbol { display: block; width: 32px; color: var(--blue); font-family: Georgia, serif; font-size: 41px; font-weight: 400; line-height: .7; text-align: center; }
 .wordmark-dot { color: var(--blue); }
 .nav-links { display: flex; align-items: center; gap: 27px; }
 .nav-links a { min-height: 44px; display: inline-flex; align-items: center; font-size: 13px; font-weight: 500; color: #505056; transition: color .2s; }
@@ -227,7 +227,7 @@ h3 { font-size: 24px; font-weight: 600; line-height: 1.2; letter-spacing: -.7px;
   .wrap { width: calc(100% - 40px); }
   .navigation { min-height: 66px; flex-wrap: wrap; gap: 0; position: relative; }
   .wordmark { font-size: 21px; }
-  .wordmark svg { width: 29px; height: 29px; }
+  .wordmark-symbol { width: 29px; font-size: 37px; }
   .nav-links { width: 100%; justify-content: center; gap: 15px; flex-wrap: wrap; padding-bottom: 12px; }
   .nav-links a { font-size: 12px; }
   .nav-links .nav-button { min-height: 36px; }
