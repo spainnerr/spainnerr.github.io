@@ -389,7 +389,7 @@ h3 { font-size: 24px; font-weight: 600; line-height: 1.2; letter-spacing: -.7px;
 @media print { .youtube-section { display: none !important; } }
 
 /* Metallic awards and professional profile links. */
-.linkedin-icon { width: 20px; height: 20px; flex-shrink: 0; }
+.linkedin-icon, .instagram-icon { width: 20px; height: 20px; flex-shrink: 0; }
 .previous-work > p { padding-left: 0; }
 .achievement-gold, .achievement-bronze {
   position: relative;
