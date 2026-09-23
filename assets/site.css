@@ -371,6 +371,24 @@ h3 { font-size: 24px; font-weight: 600; line-height: 1.2; letter-spacing: -.7px;
 }
 @media print { .youtube-section { display: none !important; } }
 
+/* Direct contact for students interested in private lessons. */
+.whatsapp-section { padding-bottom: 100px; }
+.whatsapp-card { display: flex; align-items: center; justify-content: space-between; gap: 40px; padding: 52px; border: 1px solid #dcebe4; border-radius: var(--radius); background: linear-gradient(120deg, #f5f5f7, #f0faf6); }
+.whatsapp-copy h2 { margin-top: 18px; font-size: clamp(30px, 3.2vw, 42px); }
+.whatsapp-copy > p:last-child { max-width: 650px; margin-top: 20px; color: var(--muted); font-size: 15px; line-height: 1.7; }
+.whatsapp-button { flex-shrink: 0; gap: 12px; color: #fff; background: #168a50; box-shadow: 0 8px 24px rgb(22 138 80 / 18%); }
+.whatsapp-button:hover { color: #fff; background: #117542; transform: translateY(-1px); }
+.whatsapp-icon { width: 25px; height: 25px; flex-shrink: 0; }
+@media (max-width: 1050px) {
+  .whatsapp-card { flex-direction: column; align-items: flex-start; gap: 28px; padding: 36px; }
+}
+@media (max-width: 760px) {
+  .whatsapp-section { padding-bottom: 69px; }
+  .whatsapp-card { padding: 28px 24px; border-radius: 24px; }
+  .whatsapp-button { max-width: 100%; padding-inline: 14px; gap: 9px; font-size: 12px; }
+}
+@media print { .whatsapp-section { display: none !important; } }
+
 /* Metallic awards and professional profile links. */
 .linkedin-icon, .instagram-icon { width: 20px; height: 20px; flex-shrink: 0; }
 .achievement-gold, .achievement-bronze {
@@ -459,6 +477,9 @@ html[data-theme="dark"] .theme-toggle .theme-moon { display: none; }
   html[data-theme="dark"] .youtube-card { background: linear-gradient(120deg, #191d24, #192b3e); border-color: var(--line); }
   html[data-theme="dark"] .youtube-button { background: #253243; color: var(--ink); border-color: #45566c; }
   html[data-theme="dark"] .youtube-button:hover { background: #31465e; }
+  html[data-theme="dark"] .whatsapp-card { background: linear-gradient(120deg, #191d24, #172a22); border-color: #334c40; }
+  html[data-theme="dark"] .whatsapp-button { background: #1a8d55; color: #fff; }
+  html[data-theme="dark"] .whatsapp-button:hover { background: #20a565; }
   html[data-theme="dark"] .closing-section { background: radial-gradient(ellipse at 50% 90%, #1b344e, transparent 62%), #191d24; }
   html[data-theme="dark"] .closing-content h2 > span { color: #a3b0c1; }
   html[data-theme="dark"] :focus-visible { outline-color: #9acbff; }
