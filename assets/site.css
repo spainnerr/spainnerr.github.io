@@ -486,3 +486,7 @@ html[data-theme="dark"] .theme-toggle .theme-moon { display: none; }
 }
 @media print { .theme-toggle { display: none !important; } }
 @media (min-width: 761px) and (max-width: 1050px) { .navigation { gap: 16px; } .nav-links { gap: 14px; } }
+
+/* Portrait and Instagram badge */
+.profile-photo { display: block; width: 100%; height: auto; border-radius: 20px; margin-bottom: 28px; }
+.instagram-verified { width: 20px; height: 20px; flex-shrink: 0; }
