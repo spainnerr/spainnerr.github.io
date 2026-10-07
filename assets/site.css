@@ -490,3 +490,5 @@ html[data-theme="dark"] .theme-toggle .theme-moon { display: none; }
 /* Portrait and Instagram badge */
 .profile-photo { display: block; width: 100%; height: auto; border-radius: 20px; margin-bottom: 28px; }
 .instagram-verified { width: 20px; height: 20px; flex-shrink: 0; }
+
+.closing-portrait { width: min(360px, 100%); height: auto; display: block; border-radius: 24px; margin-bottom: 36px; box-shadow: 0 16px 45px rgb(0 70 150 / 15%); }
