@@ -1,1 +1,27 @@
 .guide-questions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0}.guide-questions button{font:inherit;font-size:14px;line-height:1.45;text-align:left;border:1px solid var(--line,#dce3ec);border-radius:14px;padding:14px 16px;min-height:48px;cursor:pointer;background:var(--page,var(--bg,#fff));color:var(--ink,#18212f)}.guide-questions button:hover,.guide-questions button[aria-pressed="true"]{border-color:var(--blue,#0066cc);box-shadow:inset 3px 0 0 var(--blue,#0066cc)}.guide-questions button:focus-visible{outline:3px solid var(--blue,#0066cc);outline-offset:3px}.guide-answer{padding:22px;border:1px solid var(--line,#dce3ec);border-radius:18px;background:var(--page,var(--bg,#fff));color:var(--ink,#18212f);margin:18px 0}.guide-answer h3{font-size:18px;line-height:1.4;margin:0 0 12px}.guide-answer p{font-size:15px;line-height:1.7;color:var(--ink,#18212f)!important;margin:0 0 14px}.guide-answer a{font-size:14px;color:var(--blue,#0066cc);text-decoration:underline;text-underline-offset:4px}@media(max-width:600px){.guide-questions{grid-template-columns:1fr}}
+/* Spainner AI — identidade oficial azul, conversa guiada e acesso permanente. */
+#spainner-ai{scroll-margin-top:110px;position:relative}
+.spainner-ai-logo{display:block;width:210px;max-width:100%;height:auto;margin:0 auto 22px;border:1px solid #d8e8ff;border-radius:24px;background:#fff}
+.assistant .spainner-ai-logo{margin-left:0}
+#spainner-ai .spainner-ai-card,#spainner-ai.assistant{border:1px solid #247bff;box-shadow:0 0 0 4px #247bff14,0 0 55px #247bff32,0 20px 60px #0066cc12;position:relative}
+#spainner-ai .spainner-ai-card:before,#spainner-ai.assistant:before{content:"";position:absolute;top:-2px;left:18%;right:18%;height:3px;border-radius:99px;background:linear-gradient(90deg,transparent,#69c9ff,#1465f5,transparent);box-shadow:0 0 22px 6px #248bff66;pointer-events:none}
+.guide-group-title{font-size:12px!important;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted,#67676d);margin:24px 0 0}
+.guide-answer{min-height:245px;overflow-wrap:anywhere}
+.guide-typing-status{display:block;font-size:12px;color:var(--muted,#67676d);margin-bottom:12px}
+.guide-answer .guide-typed-text{min-height:6.8em}
+.guide-typed-text.is-typing:after{content:"";display:inline-block;width:2px;height:1em;margin-left:3px;vertical-align:-.1em;background:#247bff;animation:guide-caret .8s step-end infinite}
+.guide-skip{font:inherit;font-size:12px;cursor:pointer;border:1px solid var(--line,#dce3ec);border-radius:9px;padding:8px 12px;background:transparent;color:var(--ink,#18212f)}
+.guide-answer a{display:inline-block;padding-block:8px;min-height:40px}
+.guide-sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.spainner-ai-avatar{display:block;position:relative;flex-shrink:0;width:60px;height:60px;overflow:hidden;background:#fff;border-radius:18px;border:1px solid #d8e8ff}
+.spainner-ai-avatar img{position:absolute;width:100px!important;height:100px!important;max-width:none!important;left:-20px;top:-10px}
+.spainner-ai-launcher{position:fixed;right:max(22px,env(safe-area-inset-right));bottom:calc(22px + env(safe-area-inset-bottom));z-index:60;display:flex;align-items:center;gap:10px;padding:6px 16px 6px 6px;border:1px solid #438dff;border-radius:24px;background:#0755cf;color:#fff!important;text-decoration:none;box-shadow:0 0 24px #247bff55,0 8px 30px #001c6340;font:600 14px/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;transition:transform .2s}
+.spainner-ai-launcher:hover{transform:translateY(-3px)}
+.spainner-ai-launcher:focus-visible{outline:3px solid #69c9ff;outline-offset:5px}
+body{padding-bottom:100px}
+@keyframes guide-caret{50%{opacity:0}}
+@media(max-width:600px){.spainner-ai-launcher{right:14px;bottom:calc(14px + env(safe-area-inset-bottom));padding:5px;border-radius:22px}.launcher-label{display:none}.spainner-ai-logo{width:180px}.guide-answer{padding:18px}.guide-answer .guide-typed-text{min-height:8.5em}}
+@media(prefers-reduced-motion:reduce){.guide-typed-text.is-typing:after{animation:none}.spainner-ai-launcher{transition:none}html{scroll-behavior:auto!important}}
+@media print{.spainner-ai-launcher{display:none}body{padding-bottom:0}}
+
+.guide-answer{scroll-margin-block:120px}.spainner-ai-status>span:nth-child(2){min-width:0}.spainner-ai-status small{font-size:12px}
