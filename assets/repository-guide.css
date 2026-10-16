@@ -15,13 +15,19 @@
 .guide-sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .spainner-ai-avatar{display:block;position:relative;flex-shrink:0;width:60px;height:60px;overflow:hidden;background:#fff;border-radius:18px;border:1px solid #d8e8ff}
 .spainner-ai-avatar img{position:absolute;width:100px!important;height:100px!important;max-width:none!important;left:-20px;top:-10px}
-.spainner-ai-launcher{position:fixed;right:max(22px,env(safe-area-inset-right));bottom:calc(22px + env(safe-area-inset-bottom));z-index:60;display:flex;align-items:center;gap:10px;padding:6px 16px 6px 6px;border:1px solid #438dff;border-radius:24px;background:#0755cf;color:#fff!important;text-decoration:none;box-shadow:0 0 24px #247bff55,0 8px 30px #001c6340;font:600 14px/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;transition:transform .2s}
-.spainner-ai-launcher:hover{transform:translateY(-3px)}
-.spainner-ai-launcher:focus-visible{outline:3px solid #69c9ff;outline-offset:5px}
-body{padding-bottom:100px}
+
+
+
+
 @keyframes guide-caret{50%{opacity:0}}
-@media(max-width:600px){.spainner-ai-launcher{right:14px;bottom:calc(14px + env(safe-area-inset-bottom));padding:5px;border-radius:22px}.launcher-label{display:none}.spainner-ai-logo{width:180px}.guide-answer{padding:18px}.guide-answer .guide-typed-text{min-height:8.5em}}
-@media(prefers-reduced-motion:reduce){.guide-typed-text.is-typing:after{animation:none}.spainner-ai-launcher{transition:none}html{scroll-behavior:auto!important}}
-@media print{.spainner-ai-launcher{display:none}body{padding-bottom:0}}
+@media(max-width:600px){.launcher-label{display:none}.spainner-ai-logo{width:180px}.guide-answer{padding:18px}.guide-answer .guide-typed-text{min-height:8.5em}}
+@media(prefers-reduced-motion:reduce){.guide-typed-text.is-typing:after{animation:none}html{scroll-behavior:auto!important}}
+@media print{body{padding-bottom:0}}
 
 .guide-answer{scroll-margin-block:120px}.spainner-ai-status>span:nth-child(2){min-width:0}.spainner-ai-status small{font-size:12px}
+
+/* Símbolo sem fundo e acesso junto aos links da apresentação. */
+.spainner-ai-logo{background:transparent;border:0;border-radius:0;width:180px;height:auto}
+.spainner-ai-avatar{background:transparent;border:0;border-radius:0;overflow:visible}
+.spainner-ai-avatar img{position:static;width:100%!important;height:100%!important;object-fit:contain;max-width:100%!important}
+.ai-direct-link{gap:10px}.ai-direct-link img{width:26px;height:26px;object-fit:contain;flex-shrink:0}
