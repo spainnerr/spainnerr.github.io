@@ -142,3 +142,104 @@
   const year = document.getElementById("copyright-year");
   if (year) year.textContent = String(new Date().getFullYear());
 })();
+
+
+/* Spainner AI: entirely local FAQ matching; no external AI calls. */
+(() => {
+  const form = document.getElementById("spainner-ai-form");
+  const input = document.getElementById("spainner-ai-input");
+  const log = document.getElementById("spainner-ai-messages");
+  if (!form || !input || !log) return;
+  const normalize = (s) => s.toLocaleLowerCase("pt-BR").normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").trim();
+  const answers = [
+    { keys:["quem e","quem eh","sobre voce","sobre o professor","quem foi","quem sou","guilherme","spainner"], answer:"Guilherme “Spainner” Spindola é professor de Matemática, com atuação no Colégio GGE e no Colégio Cognitivo. Está cursando Licenciatura em Matemática na UFRPE e compartilha sua trajetória e projetos neste site. Saiba mais na seção Sobre.", link:"#sobre" },
+    { keys:["formacao","formado","faculdade","universidade","graduacao","estudou","estuda","ufrpe","upe","engenharia","curso superior"], answer:"Guilherme cursa Licenciatura em Matemática na Universidade Federal Rural de Pernambuco (UFRPE). Iniciou sua trajetória no ensino superior em Engenharia na Universidade de Pernambuco (UPE), antes de seguir para Matemática.", link:"#trajetoria" },
+    { keys:["trabalha","trabalho","leciona","ensina","professor","escola","colegio","gge","cognitivo","experiencia","atuacao","editora"], answer:"Guilherme atua como professor e monitor de Matemática no Colégio GGE, presta serviços à editora da instituição e também é professor no Colégio Cognitivo. Anteriormente, foi monitor no Curso Fernanda Pessoa.", link:"#atuacao" },
+    { keys:["aula particular","aulas particulares","contratar","agendar","contato","whatsapp","preco","valor","orcamento"], answer:"Para saber sobre disponibilidade, valores e aulas particulares, acesse a seção Aulas particulares e entre em contato pelo WhatsApp. O assistente não confirma preços nem horários.", link:"#aulas-particulares" },
+    { keys:["medalha","premio","olimpiada","conquista","canguru","oba","onc","onhb"], answer:"Entre suas conquistas estão uma medalha de ouro na Olimpíada Canguru de Matemática, duas medalhas de bronze na Olimpíada Brasileira de Astronomia (OBA), menção honrosa na ONC e participação como semifinalista na ONHB.", link:"#conquistas" },
+    { keys:["instagram","linkedin","youtube","rede social","redes sociais","canal","video"], answer:"Você encontra os perfis profissionais e o canal do YouTube nas seções e links deste site. No Instagram, o perfil é @spainnerr.", link:"#youtube" },
+    { keys:["aluno","estudante","historia","trajetoria","colegio quando","ex aluno"], answer:"Guilherme foi aluno do Colégio GGE no Ensino Fundamental e Médio. Desde estudante, gostava de Matemática, ajudava colegas e participou da vida escolar como representante de classe.", link:"#trajetoria" },
+    { keys:["oi","ola","bom dia","boa tarde","boa noite","tudo bem"], answer:"Olá! Posso falar sobre a formação, atuação profissional, trajetória, conquistas e aulas particulares do professor. O que você gostaria de saber?" }
+  ];
+  function answer(question) {
+    const q = normalize(question);
+    if (!q) return;
+    let best = null, score = 0;
+    for (const entry of answers) {
+      let current = 0;
+      for (const key of entry.keys) {
+        const k = normalize(key);
+        if (q === k) current += 12;
+        else if (q.includes(k)) current += k.includes(" ") ? 6 : 3;
+      }
+      if (current > score) { best = entry; score = current; }
+    }
+    addBubble(question, true);
+    if (!best) {
+      addBubble("Ainda não tenho uma resposta cadastrada para essa pergunta. Posso ajudar com formação, experiência profissional, conquistas, redes sociais ou aulas particulares. Tente perguntar sobre um desses assuntos.");
+    } else {
+      addBubble(best.answer, false, best.link);
+    }
+    log.scrollTop = log.scrollHeight;
+  }
+  function addBubble(message, user = false, link = null) {
+    const p = document.createElement("p");
+    p.className = "spainner-ai-bubble" + (user ? " user" : "");
+    p.textContent = message;
+    if (link) {
+      const a = document.createElement("a");
+      a.href = link;
+      a.textContent = " Ver seção →";
+      a.style.cssText = "display:inline-block;margin-left:6px;color:inherit;text-decoration:underline;font-weight:600";
+      p.appendChild(a);
+    }
+    log.appendChild(p);
+  }
+  form.addEventListener("submit", (e) => { e.preventDefault(); const q = input.value.trim(); if (!q) return; answer(q); input.value = ""; input.focus(); });
+  document.querySelectorAll("[data-ai-question]").forEach((b) => b.addEventListener("click", () => answer(b.dataset.aiQuestion)));
+})();
+
+
+/* Spainner AI — local FAQ matcher; no remote calls or paid APIs. */
+(() => {
+  const form = document.getElementById("spainner-ai-form");
+  const input = document.getElementById("spainner-ai-input");
+  const messages = document.getElementById("spainner-ai-messages");
+  if (!form || !input || !messages) return;
+  const normalize = (value) => value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9\s]/g, " ").replace(/\s+/g, " ").trim();
+  const topics = [
+    { words:["quem","sobre","voce","guilherme","spindola","spainner","apresentacao"], answer:"Guilherme “Spainner” Spindola é professor de Matemática, graduando em Licenciatura em Matemática na UFRPE. Atua no Colégio GGE e no Colégio Cognitivo e busca ensinar Matemática com clareza e proximidade." },
+    { words:["formacao","faculdade","universidade","graduacao","ufrpe","upe","engenharia","estudou","curso"], answer:"Guilherme cursa Licenciatura em Matemática na Universidade Federal Rural de Pernambuco (UFRPE). Antes, iniciou sua trajetória universitária em Engenharia na Universidade de Pernambuco (UPE), transferindo-se posteriormente para Matemática." },
+    { words:["trabalha","trabalho","atuacao","experiencia","professor","leciona","escola","colegio","gge","cognitivo","editora"], answer:"Guilherme atua como professor e monitor de Matemática no Colégio GGE, presta serviços à editora da instituição e também é professor no Colégio Cognitivo. Anteriormente, foi monitor do Curso Fernanda Pessoa." },
+    { words:["aula","aulas","particular","particulares","contratar","agendar","whatsapp","contato","preco","valor"], answer:"Para saber sobre a disponibilidade e as condições das aulas particulares, acesse a seção “Aulas particulares” deste site. Lá você encontra o canal de contato: https://spainnerr.github.io/#aulas-particulares" },
+    { words:["medalha","olimpiada","premio","conquista","canguru","oba","onc","onhb"], answer:"Entre suas conquistas acadêmicas estão a medalha de ouro na Olimpíada Canguru de Matemática, duas medalhas de bronze na Olimpíada Brasileira de Astronomia (OBA), menção honrosa na ONC e participação como semifinalista na ONHB." },
+    { words:["instagram","linkedin","youtube","rede","redes","social","sociais","canal"], answer:"Você pode acompanhar Guilherme pelo Instagram (@spainnerr), LinkedIn e YouTube. Os links estão disponíveis nas seções do site: https://www.instagram.com/spainnerr e https://spainnerr.github.io/#youtube" },
+    { words:["aluno","estudante","historia","trajetoria","representante"], answer:"Guilherme foi aluno do Colégio GGE no Ensino Fundamental e Médio. Durante sua trajetória escolar, gostava de ajudar colegas com Matemática e foi representante de classe. Hoje, retorna ao ambiente escolar como professor." }
+  ];
+  const stop = new Set(["a","o","as","os","de","da","do","das","dos","e","em","na","no","um","uma","qual","quais","como","onde","sobre","me","se","por","que","eh","e","seu","sua","voce"]);
+  function answer(question) {
+    const words = normalize(question).split(" ").filter(w => w.length > 2 && !stop.has(w));
+    let best = null, score = 0;
+    for (const topic of topics) {
+      const count = words.reduce((sum, word) => sum + (topic.words.includes(word) ? 1 : 0), 0);
+      if (count > score) { score = count; best = topic; }
+    }
+    return best ? best.answer : "Ainda não tenho uma resposta cadastrada para essa pergunta. Posso falar sobre formação, trajetória, atuação profissional, conquistas, redes sociais e aulas particulares. Tente perguntar sobre um desses assuntos.";
+  }
+  function bubble(value, isUser) {
+    const p = document.createElement("p");
+    p.className = "spainner-ai-bubble" + (isUser ? " user" : "");
+    p.textContent = value;
+    messages.appendChild(p);
+    messages.scrollTop = messages.scrollHeight;
+  }
+  function ask(value) {
+    const question = value.trim().slice(0, 240);
+    if (!question) return;
+    bubble(question, true);
+    bubble(answer(question), false);
+    input.value = "";
+  }
+  form.addEventListener("submit", (event) => { event.preventDefault(); ask(input.value); });
+  document.querySelectorAll("[data-ai-question]").forEach(button => button.addEventListener("click", () => ask(button.dataset.aiQuestion || "")));
+})();
