@@ -22,9 +22,9 @@
       document.querySelector('meta[name="theme-color"]').content = theme === "dark" ? "#101216" : "#f5f5f7";
     })();
   </script>
-  <link rel="stylesheet" href="./assets/site.css?v=spainner-ai-1">
+  <link rel="stylesheet" href="./assets/site.css?v=teoremas-2">
   <link rel="preload" href="./assets/mobius-studio-3840.webp" as="image" type="image/webp">
-  <script src="./assets/site.js?v=spainner-ai-1" defer></script>
+  <script src="./assets/site.js?v=teoremas-2" defer></script>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"Person","name":"Guilherme Spindola","alternateName":"Guilherme “Spainner” Spindola","url":"https://spainnerr.github.io/","jobTitle":"Professor de Matemática","description":"Professor e monitor de Matemática no Colégio GGE, prestador de serviços à editora da instituição e professor no Colégio Cognitivo. Graduando em Licenciatura em Matemática na UFRPE.","worksFor":[{"@type":"EducationalOrganization","name":"Colégio GGE"},{"@type":"EducationalOrganization","name":"Colégio Cognitivo"}],"sameAs":["https://www.linkedin.com/in/guilherme-spindola-a53a47384/","https://www.instagram.com/spainnerr"]}
   </script>
@@ -50,6 +50,7 @@
         <a href="#atuacao">Atuação</a>
         <a href="#trajetoria">Trajetória</a>
         <a href="#conquistas">Conquistas</a>
+        <a href="./teoremas.html">Teoremas</a>
         <a href="#spainner-ai">Spainner AI</a>
         <a class="nav-button" href="#apresentacao">Apresentação <span aria-hidden="true">↗</span></a>
       </div>
@@ -212,26 +213,29 @@
       </div>
     </section>
 
+    <section class="section wrap" id="teoremas" aria-labelledby="theorems-title"><p class="eyebrow">ESTUDE O PORQUÊ</p><h2 id="theorems-title">Repositório de<br><span class="blue-text">teoremas.</span></h2><p style="max-width:600px;margin:24px 0;color:var(--muted)">23 teoremas com enunciados, hipóteses explícitas e demonstrações. Busque por assunto, filtre por área e acompanhe cada raciocínio.</p><a class="button button-primary" href="./teoremas.html">Explorar o repositório <span aria-hidden="true">↗</span></a></section>
+
     <section class="section spainner-ai-section wrap" id="spainner-ai" aria-labelledby="spainner-ai-title">
       <div class="spainner-ai-heading">
         <p class="eyebrow"><span class="blue-dot" aria-hidden="true"></span> ASSISTENTE INTERATIVO</p>
         <h2 id="spainner-ai-title">Spainner <span class="blue-text">AI.</span></h2>
-        <p>Conheça minha formação, trajetória e atuação profissional. Faça uma pergunta ou escolha um assunto.</p>
+        <p>Seu guia do Repositório de teoremas. Saiba como buscar, consultar hipóteses e acompanhar as demonstrações.</p>
       </div>
       <div class="spainner-ai-card">
-        <div class="spainner-ai-status"><span class="spainner-ai-orb" aria-hidden="true">✦</span><span><strong>Spainner AI</strong><small>Assistente sobre o professor</small></span><span class="spainner-ai-free">Gratuito</span></div>
+        <div class="spainner-ai-status"><span class="spainner-ai-orb" aria-hidden="true">✦</span><span><strong>Spainner AI</strong><small>Guia do Repositório de teoremas</small></span><span class="spainner-ai-free">Gratuito</span></div>
         <div class="spainner-ai-messages" id="spainner-ai-messages" role="log" aria-live="polite" aria-relevant="additions">
-          <p class="spainner-ai-bubble">Olá! Sou o assistente virtual do professor Guilherme Spindola. Posso contar sobre sua formação, experiência, conquistas e aulas particulares. O que gostaria de saber?</p>
+          <p class="spainner-ai-bubble">Olá! Posso ajudar você a usar o Repositório de teoremas: buscar resultados, ler hipóteses e demonstrações ou compartilhar um teorema. Como posso ajudar?</p>
         </div>
         <div class="spainner-ai-suggestions" aria-label="Sugestões de perguntas">
-          <button type="button" data-ai-question="Quem é Guilherme Spindola?">Quem é Guilherme?</button>
-          <button type="button" data-ai-question="Qual é sua formação?">Formação</button>
-          <button type="button" data-ai-question="Onde você trabalha?">Atuação</button>
-          <button type="button" data-ai-question="Você dá aulas particulares?">Aulas particulares</button>
+<button type="button" data-ai-question="Como buscar?">Como buscar?</button><button type="button" data-ai-question="O que são hipóteses?">Hipóteses</button><button type="button" data-ai-question="Como compartilhar?">Compartilhar</button>
+          
+          
+          
+          
         </div>
         <form class="spainner-ai-form" id="spainner-ai-form">
-          <label class="sr-only" for="spainner-ai-input">Sua pergunta sobre o professor</label>
-          <input id="spainner-ai-input" type="text" maxlength="240" autocomplete="off" placeholder="Pergunte sobre mim..." required>
+          <label class="sr-only" for="spainner-ai-input">Sua dúvida sobre o repositório</label>
+          <input id="spainner-ai-input" type="text" maxlength="240" autocomplete="off" placeholder="Como uso o repositório?" required>
           <button type="submit" aria-label="Enviar pergunta">Enviar <span aria-hidden="true">↗</span></button>
         </form>
         <p class="spainner-ai-disclaimer">Assistente informativo com respostas cadastradas. Não utiliza IA generativa nem envia suas perguntas a serviços externos.</p>
@@ -259,5 +263,7 @@
     <p>© <span id="copyright-year">2026</span> Guilherme Spindola.</p>
     <a class="back-to-top" href="#inicio">Voltar ao início <span aria-hidden="true">↑</span></a>
   </footer>
+<script src="./assets/repository-guide.js?v=2" defer></script>
 </body>
 </html>
+
