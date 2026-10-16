@@ -1,18 +1,19 @@
 (() => {
- const form=document.getElementById('spainner-ai-form'),input=document.getElementById('spainner-ai-input'),log=document.getElementById('spainner-ai-messages');
- if(!form||!input||!log)return;
- const norm=s=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
- const topics=[
- {keys:/hipotes|condic|premissa/,text:'As hipóteses são as condições em que o teorema vale. Abra “Ler hipóteses e demonstração” e confira cada condição antes de aplicar o resultado. “Resultados usados” reúne os conhecimentos auxiliares empregados na prova.',link:'./teoremas.html#como-usar'},
- {keys:/compartilh|link|enviar/,text:'Abra um teorema e toque em “Link deste teorema”. Copie o endereço do navegador: quem receber o link verá esse teorema com a demonstração aberta.',link:'./teoremas.html#acervo'},
- {keys:/baix|export|json|salvar/,text:'Em “Como usar”, escolha “baixe o acervo em JSON”. O arquivo contém os enunciados, as hipóteses, os resultados usados e as demonstrações. Você também pode guardar o link de cada teorema.',link:'./teoremas.html#como-usar'},
- {keys:/edit|adicion|cadastr|public|import/,text:'Esta página é um acervo público de consulta. As atualizações são publicadas pelo responsável pelo site. Para preparar um novo teorema, reúna título, área, enunciado, hipóteses, resultados usados e demonstração completa. O arquivo JSON permite guardar uma cópia do conteúdo.',link:'./teoremas.html#como-usar'},
- {keys:/busc|filtr|encontr|pesquis|area|tecnica/,text:'Use o campo de busca para digitar o nome ou uma palavra do teorema. Você pode combinar a busca com os filtros de área e técnica. “Limpar” volta a mostrar todo o acervo.',link:'./teoremas.html#acervo'},
- {keys:/demonstr|prova|ler|passo|enunciado/,text:'Cada cartão mostra o enunciado. Abra “Ler hipóteses e demonstração” para consultar as condições, os resultados auxiliares e a prova completa. Leia nessa ordem para acompanhar o raciocínio.',link:'./teoremas.html#acervo'},
- {keys:/gratuit|custo|credito|\bia\b|inteligencia/,text:'Este guia funciona com respostas cadastradas no próprio site, sem API paga. Ele orienta o uso do repositório; não gera nem verifica demonstrações matemáticas.',link:'./teoremas.html#como-usar'},
- {keys:/^(oi|ola|bom dia|boa tarde|boa noite)[!. ]*$|funciona|comec|repositorio|acervo|ajuda|usar/,text:'O Repositório de teoremas reúne 23 resultados com enunciado, hipóteses e demonstração. Comece pela busca, escolha uma área ou abra um cartão. Posso explicar os filtros, as hipóteses, o download e os links para compartilhar.',link:'./teoremas.html'}
- ];
- function bubble(text,user=false,link){const p=document.createElement('p');p.className='spainner-ai-bubble'+(user?' user':'');p.textContent=text;if(link){const a=document.createElement('a');a.href=link;a.textContent=' Abrir →';a.style.cssText='color:inherit;text-decoration:underline';p.appendChild(a);}log.appendChild(p);while(log.children.length>41)log.firstElementChild.remove();log.scrollTop=log.scrollHeight;}
- function ask(raw){const q=raw.trim().slice(0,240);if(!q)return;const topic=topics.find(t=>t.keys.test(norm(q)));bubble(q,true);bubble(topic?topic.text:'Posso ajudar a usar o Repositório de teoremas: buscar, filtrar, entender as hipóteses, ler demonstrações, baixar ou compartilhar. Não gero provas novas. Qual dessas opções você quer conhecer?',false,topic?topic.link:'./teoremas.html#como-usar');input.value='';}
- form.addEventListener('submit',e=>{e.preventDefault();ask(input.value);input.focus();});document.querySelectorAll('[data-ai-question]').forEach(b=>b.addEventListener('click',()=>ask(b.dataset.aiQuestion)));
+  "use strict";
+  const panel = document.getElementById("repository-guide-answer");
+  if (!panel) return;
+  const entries = {"start": {"question": "Como funciona o acervo?", "answer": "O acervo reúne 23 teoremas em 9 áreas. Cada entrada apresenta enunciado, hipóteses, resultados usados e demonstração. Escolha um assunto e abra “Ler hipóteses e demonstração”.", "link": "./teoremas.html#acervo"}, "search": {"question": "Como encontrar um teorema?", "answer": "Digite um assunto na busca do acervo e combine os filtros de área e técnica. A busca inclui enunciados, hipóteses e demonstrações. Use “Limpar” para ver todos os teoremas.", "link": "./teoremas.html#acervo"}, "statement": {"question": "O que diz o enunciado?", "answer": "O enunciado expressa precisamente o resultado do teorema. Leia-o junto das hipóteses para identificar os objetos envolvidos, as condições e a conclusão.", "link": "./teoremas.html#acervo"}, "hypotheses": {"question": "O que são as hipóteses?", "answer": "São as condições em que o teorema vale. Confira todas antes de aplicar o resultado. Por exemplo, a versão de Pitágoras no acervo exige um triângulo retângulo não degenerado no plano euclidiano.", "link": "./teoremas.html#seed-9"}, "dependencies": {"question": "O que são os resultados usados?", "answer": "São definições, propriedades ou outros teoremas que sustentam a demonstração. Eles indicam os conhecimentos necessários para acompanhar a prova. Nem todo resultado auxiliar tem uma demonstração própria neste acervo.", "link": "./teoremas.html#como-usar"}, "proof": {"question": "Como ler uma demonstração?", "answer": "Leia o enunciado, confira as hipóteses e revise os resultados usados. Depois acompanhe cada passo da demonstração e observe como ele conduz à conclusão. A técnica indicada ajuda a reconhecer a estrutura do argumento.", "link": "./teoremas.html#acervo"}, "share": {"question": "Como compartilhar um teorema?", "answer": "Abra a demonstração e clique em “Link deste teorema”. Copie o endereço do navegador. O link abre diretamente a entrada escolhida.", "link": "./teoremas.html#acervo"}, "download": {"question": "Como baixar o acervo?", "answer": "Use o link abaixo para baixar o arquivo JSON com os enunciados, hipóteses, resultados usados e demonstrações. Ele contém os textos do acervo em formato estruturado.", "link": "./assets/teoremas.json"}};
+  const buttons = [...document.querySelectorAll("[data-guide-question]")];
+  buttons.forEach(button => button.addEventListener("click", () => {
+    const id = button.dataset.guideQuestion;
+    if (!Object.prototype.hasOwnProperty.call(entries, id)) return;
+    const entry = entries[id];
+    const heading = document.createElement("h3"); heading.textContent = entry.question;
+    const answer = document.createElement("p"); answer.textContent = entry.answer;
+    const link = document.createElement("a"); link.href = entry.link;
+    link.textContent = id === "download" ? "Baixar acervo em JSON ↓" : "Abrir no acervo →";
+    if (id === "download") link.setAttribute("download", "teoremas.json");
+    panel.replaceChildren(heading, answer, link);
+    buttons.forEach(b => b.setAttribute("aria-pressed", String(b === button)));
+  }));
 })();
