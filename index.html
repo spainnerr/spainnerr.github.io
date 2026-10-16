@@ -22,9 +22,9 @@
       document.querySelector('meta[name="theme-color"]').content = theme === "dark" ? "#101216" : "#f5f5f7";
     })();
   </script>
-  <link rel="stylesheet" href="./assets/site.css?v=theme-portraits-1">
+  <link rel="stylesheet" href="./assets/site.css?v=spainner-ai-1">
   <link rel="preload" href="./assets/mobius-studio-3840.webp" as="image" type="image/webp">
-  <script src="./assets/site.js?v=theme-1" defer></script>
+  <script src="./assets/site.js?v=spainner-ai-1" defer></script>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"Person","name":"Guilherme Spindola","alternateName":"Guilherme “Spainner” Spindola","url":"https://spainnerr.github.io/","jobTitle":"Professor de Matemática","description":"Professor e monitor de Matemática no Colégio GGE, prestador de serviços à editora da instituição e professor no Colégio Cognitivo. Graduando em Licenciatura em Matemática na UFRPE.","worksFor":[{"@type":"EducationalOrganization","name":"Colégio GGE"},{"@type":"EducationalOrganization","name":"Colégio Cognitivo"}],"sameAs":["https://www.linkedin.com/in/guilherme-spindola-a53a47384/","https://www.instagram.com/spainnerr"]}
   </script>
@@ -50,6 +50,7 @@
         <a href="#atuacao">Atuação</a>
         <a href="#trajetoria">Trajetória</a>
         <a href="#conquistas">Conquistas</a>
+        <a href="#spainner-ai">Spainner AI</a>
         <a class="nav-button" href="#apresentacao">Apresentação <span aria-hidden="true">↗</span></a>
       </div>
     </nav>
@@ -208,6 +209,32 @@
           <svg class="whatsapp-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false"><path d="M20.5 11.7a8.5 8.5 0 0 1-12.6 7.5L3 20.5l1.3-4.7a8.5 8.5 0 1 1 16.2-4.1Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.2 7.7c.3-.4.6-.4.9-.1l1.2 1.6c.2.3.1.6-.1.9l-.6.7c.7 1.5 1.9 2.7 3.5 3.4l.7-.8c.2-.3.5-.4.8-.2l1.8.9c.3.2.4.5.3.8-.4 1.2-1.5 1.9-2.8 1.7-4.2-.8-7.4-4-8.2-8.1-.2-1.2.6-2.2 1.7-2.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <span>Conversar sobre aulas particulares</span><span aria-hidden="true">↗</span>
         </a>
+      </div>
+    </section>
+
+    <section class="section spainner-ai-section wrap" id="spainner-ai" aria-labelledby="spainner-ai-title">
+      <div class="spainner-ai-heading">
+        <p class="eyebrow"><span class="blue-dot" aria-hidden="true"></span> ASSISTENTE INTERATIVO</p>
+        <h2 id="spainner-ai-title">Spainner <span class="blue-text">AI.</span></h2>
+        <p>Conheça minha formação, trajetória e atuação profissional. Faça uma pergunta ou escolha um assunto.</p>
+      </div>
+      <div class="spainner-ai-card">
+        <div class="spainner-ai-status"><span class="spainner-ai-orb" aria-hidden="true">✦</span><span><strong>Spainner AI</strong><small>Assistente sobre o professor</small></span><span class="spainner-ai-free">Gratuito</span></div>
+        <div class="spainner-ai-messages" id="spainner-ai-messages" role="log" aria-live="polite" aria-relevant="additions">
+          <p class="spainner-ai-bubble">Olá! Sou o assistente virtual do professor Guilherme Spindola. Posso contar sobre sua formação, experiência, conquistas e aulas particulares. O que gostaria de saber?</p>
+        </div>
+        <div class="spainner-ai-suggestions" aria-label="Sugestões de perguntas">
+          <button type="button" data-ai-question="Quem é Guilherme Spindola?">Quem é Guilherme?</button>
+          <button type="button" data-ai-question="Qual é sua formação?">Formação</button>
+          <button type="button" data-ai-question="Onde você trabalha?">Atuação</button>
+          <button type="button" data-ai-question="Você dá aulas particulares?">Aulas particulares</button>
+        </div>
+        <form class="spainner-ai-form" id="spainner-ai-form">
+          <label class="sr-only" for="spainner-ai-input">Sua pergunta sobre o professor</label>
+          <input id="spainner-ai-input" type="text" maxlength="240" autocomplete="off" placeholder="Pergunte sobre mim..." required>
+          <button type="submit" aria-label="Enviar pergunta">Enviar <span aria-hidden="true">↗</span></button>
+        </form>
+        <p class="spainner-ai-disclaimer">Assistente informativo com respostas cadastradas. Não utiliza IA generativa nem envia suas perguntas a serviços externos.</p>
       </div>
     </section>
 
