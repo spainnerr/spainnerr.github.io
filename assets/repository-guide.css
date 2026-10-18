@@ -31,3 +31,21 @@
 .spainner-ai-avatar{background:transparent;border:0;border-radius:0;overflow:visible}
 .spainner-ai-avatar img{position:static;width:100%!important;height:100%!important;object-fit:contain;max-width:100%!important}
 .ai-direct-link{gap:10px}.ai-direct-link img{width:26px;height:26px;object-fit:contain;flex-shrink:0}
+
+/* Pulsação suave do neon: ciclo de quatro segundos, sem alterar o layout. */
+@keyframes spainner-neon-breathe {
+  0%,100% { border-color:#247bff80; box-shadow:0 0 0 3px #247bff0d,0 0 20px #247bff20,0 14px 40px #0066cc0d; }
+  50% { border-color:#62b5ff; box-shadow:0 0 0 4px #247bff24,0 0 48px #247bff55,0 18px 55px #0066cc26; }
+}
+@keyframes spainner-neon-strip {
+  0%,100% { opacity:.4; }
+  50% { opacity:1; }
+}
+@media (prefers-reduced-motion:no-preference) {
+  #spainner-ai .spainner-ai-card,#spainner-ai.assistant { animation:spainner-neon-breathe 4s ease-in-out infinite; }
+  #spainner-ai .spainner-ai-card:before,#spainner-ai.assistant:before { animation:spainner-neon-strip 4s ease-in-out infinite; }
+}
+@media print {
+  #spainner-ai .spainner-ai-card,#spainner-ai.assistant,
+  #spainner-ai .spainner-ai-card:before,#spainner-ai.assistant:before { animation:none; }
+}
