@@ -39,7 +39,7 @@
   const navigation = document.querySelector(".navigation");
   const menuButton = document.querySelector(".menu-toggle");
   const navLinks = document.getElementById("nav-links");
-  const narrowScreen = window.matchMedia("(max-width: 760px)");
+  const narrowScreen = window.matchMedia("(max-width: 1100px)");
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const motionButton = document.querySelector(".motion-toggle");
 
@@ -142,3 +142,4 @@
   const year = document.getElementById("copyright-year");
   if (year) year.textContent = String(new Date().getFullYear());
 })();
+

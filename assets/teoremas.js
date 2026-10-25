@@ -10,8 +10,9 @@
  function openHash(){const id=location.hash.slice(1);const card=cards.find(c=>c.id===id);if(card){clear();card.querySelector('details').open=true;requestAnimationFrame(()=>card.scrollIntoView());}}
  window.addEventListener('hashchange',openHash);
  const theme=document.getElementById('theme');let dark=matchMedia('(prefers-color-scheme: dark)').matches;try{const saved=localStorage.getItem('spainner-theme');if(saved)dark=saved==='dark';}catch{}
- function apply(){document.body.classList.toggle('dark',dark);theme.setAttribute('aria-pressed',String(dark));theme.setAttribute('aria-label',dark?'Ativar modo claro':'Ativar modo escuro');}apply();theme.addEventListener('click',()=>{dark=!dark;apply();try{localStorage.setItem('spainner-theme',dark?'dark':'light');}catch{}});
+ function apply(){document.body.classList.toggle('dark',dark);document.documentElement.dataset.theme=dark?'dark':'light';document.querySelector('meta[name="theme-color"]').content=dark?'#101216':'#f5f5f7';theme.setAttribute('aria-pressed',String(dark));theme.setAttribute('aria-label',dark?'Ativar modo claro':'Ativar modo escuro');}apply();theme.addEventListener('click',()=>{dark=!dark;apply();try{localStorage.setItem('spainner-theme',dark?'dark':'light');}catch{}});
  if(typeof renderMathInElement==='function'){renderMathInElement(document.querySelector('.theorems'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}],throwOnError:false});}
  else {const note=document.createElement('p');note.textContent='A formatação das fórmulas não carregou. O conteúdo continua disponível em LaTeX; recarregue a página para tentar novamente.';document.getElementById('count').after(note);}
  openHash();
 })();
+

@@ -1,0 +1,245 @@
+/* Shared visual system for the portfolio and theorem library. */
+:root {
+  --action: #0862c4;
+  --action-hover: #064fa1;
+  --action-ink: #fff;
+  --soft: #edf4fc;
+  --surface: #f5f7fb;
+  --blue-strong: #0754a6;
+  --control-radius: 12px;
+  --card-radius: 24px;
+  --shadow: 0 12px 36px rgb(20 48 83 / 5%);
+}
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --action: #287cdb;
+  --action-hover: #1768c5;
+  --action-ink: #fff;
+  --soft: #1b2c42;
+  --surface: #191d24;
+  --blue-strong: #a5ceff;
+  --bg: #101216;
+  --shadow: 0 12px 36px rgb(0 0 0 / 12%);
+}
+body { overflow-wrap: break-word; }
+:where(button, a, input, select, summary):focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 4px;
+}
+:where(button, a, input, select) { -webkit-tap-highlight-color: transparent; }
+:where(button, .button, .nav-button) {
+  transition: background-color .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+/* One geometry for actions; only hierarchy changes the fill. */
+body :is(.button, .nav-links .nav-button, .guide-questions button, .guide-skip, .filters button, .theme-control) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  max-width: 100%;
+  padding: 12px 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--control-radius);
+  background: var(--page, var(--bg, #fff));
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.45;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: none;
+  transform: none;
+}
+body :is(.button-primary, .whatsapp-button, .nav-links .nav-button), body.library .intro .button {
+  background: var(--action);
+  border-color: var(--action);
+  color: var(--action-ink);
+}
+body :is(.button-primary, .whatsapp-button, .nav-links .nav-button):hover, body.library .intro .button:hover {
+  background: var(--action-hover);
+  border-color: var(--action-hover);
+  color: var(--action-ink);
+  box-shadow: 0 4px 12px rgb(0 72 150 / 12%);
+  transform: none;
+}
+body :is(.button-secondary, .youtube-button) {
+  background: var(--soft);
+  border-color: transparent;
+  color: var(--blue-strong);
+}
+body :is(.button-secondary, .youtube-button):hover {
+  background: var(--soft);
+  border-color: var(--blue);
+  color: var(--blue-strong);
+  box-shadow: none;
+  text-decoration: none;
+  transform: none;
+}
+body .button :is(svg, img) { width: 20px; height: 20px; flex-shrink: 0; object-fit: contain; }
+body :is(.theme-toggle, .motion-toggle) {
+  width: 44px; height: 44px; min-width: 44px; min-height: 44px;
+  border-radius: var(--control-radius);
+  border: 1px solid var(--line);
+}
+body .menu-toggle { min-height: 44px; padding: 10px 12px; border: 1px solid var(--line); border-radius: var(--control-radius); }
+body :is(.guide-questions button, .guide-skip, .filters button, .theme-control):hover {
+  background: var(--soft); border-color: var(--blue); color: var(--blue-strong);
+}
+body .guide-questions button {
+  justify-content: flex-start; text-align: left; padding: 14px 16px; font-weight: 500;
+}
+body .guide-questions button[aria-pressed="true"] {
+  background: var(--soft); color: var(--blue-strong); border-color: var(--blue);
+  box-shadow: inset 3px 0 0 var(--blue);
+}
+body .guide-skip { min-height: 44px; padding: 10px 14px; }
+body .guide-answer a { min-height: 44px; }
+body .material-actions { gap: 12px; }
+body .closing-actions .button { margin-top: 0; }
+body .closing-actions { margin-top: 28px; }
+/* The portfolio: clear rhythm, quieter surfaces and better reading width. */
+.portfolio .navigation { gap: 22px; }
+.portfolio .nav-links { gap: 18px; }
+.portfolio .nav-links a { font-weight: 550; }
+.portfolio .nav-links a[aria-current="location"] { text-decoration: underline; text-underline-offset: 7px; text-decoration-thickness: 2px; }
+.portfolio .hero { padding-top: 80px; padding-bottom: 64px; gap: 24px; min-height: 720px; }
+.portfolio .hero-copy { min-width: 0; }
+.portfolio h1 { font-size: clamp(56px, 6.3vw, 88px); letter-spacing: -.06em; }
+.portfolio .hero-name { font-size: 20px; margin-top: 26px; }
+.portfolio .hero-description { margin-top: 14px; max-width: 440px; font-size: 16px; line-height: 1.8; }
+.portfolio .hero-actions { display: grid; grid-template-columns: max-content max-content; gap: 12px; margin-top: 28px; width: fit-content; max-width: 100%; }
+.portfolio .hero-actions .button { width: 100%; }
+.portfolio .hero-caption { margin-top: 28px; font-size: 12px; color: var(--muted); }
+.portfolio .institutions { padding-block: 32px; border-bottom: 1px solid var(--line); border-top-color: var(--line); }
+.portfolio .institution-names > span { font-size: 24px; }
+.portfolio .institution-detail { font-size: 9px; line-height: 1.6; }
+.portfolio .section { padding-block: 96px; }
+.portfolio .section > .eyebrow + h2 { margin-top: 20px; }
+.portfolio .eyebrow { font-size: 11px; letter-spacing: 1.7px; }
+.portfolio :is(.work-card, .about-profile, .achievement, .material-card) { border-radius: var(--card-radius); box-shadow: var(--shadow); }
+.portfolio .work-card { border: 1px solid var(--line); }
+.portfolio .about-story { border-radius: var(--card-radius); }
+.portfolio :is(.about-story > p, .about-profile > p, .work-card-copy > p:last-child, .timeline-item > p:last-child) { font-size: 15px; line-height: 1.85; }
+.portfolio .profile-photo { border-radius: 16px; }
+.portfolio .achievement { min-height: 310px; }
+.portfolio .achievement :is(.achievement-category, .achievement-footnote) { font-size: 11px; }
+.portfolio .achievement-category { letter-spacing: .8px; }
+.portfolio .achievement-gold { background: #faf5e8; border-color: #e5d5ae; box-shadow: var(--shadow); }
+.portfolio .achievement-bronze { background: #f8eee6; border-color: #e5ccb9; box-shadow: var(--shadow); }
+.portfolio :is(.achievement-gold, .achievement-bronze)::before { display: none; }
+.portfolio :is(.youtube-section, .whatsapp-section) { padding-bottom: 32px; }
+.portfolio :is(.youtube-card, .whatsapp-card) { background: var(--paper); border: 1px solid var(--line); border-radius: var(--card-radius); box-shadow: none; padding: 40px; gap: 28px; }
+.portfolio :is(.youtube-copy, .whatsapp-copy) { min-width: 0; }
+.portfolio :is(.youtube-copy h2, .whatsapp-copy h2) { font-size: clamp(28px, 3vw, 38px); }
+.portfolio :is(.youtube-button, .whatsapp-button) { max-width: 330px; }
+.portfolio .resource-section { margin-top: 64px; margin-bottom: 16px; padding: 48px; border: 1px solid var(--line); border-radius: var(--card-radius); background: var(--soft); }
+.portfolio .resource-description { max-width: 600px; margin: 24px 0; color: var(--muted); font-size: 16px; line-height: 1.8; }
+.portfolio .materials-section { padding-bottom: 48px; }
+.portfolio .material-card { max-width: 620px; background: var(--paper); }
+.portfolio .spainner-ai-heading { max-width: 620px; }
+.portfolio .spainner-ai-heading h2 { font-size: clamp(36px, 5vw, 56px); }
+body .spainner-ai-logo { width: 110px; margin-bottom: 16px; }
+body #spainner-ai :is(.spainner-ai-card), body #spainner-ai.assistant {
+  border: 1px solid var(--line); border-radius: var(--card-radius);
+  box-shadow: var(--shadow); animation: none;
+}
+body #spainner-ai .spainner-ai-card:before, body #spainner-ai.assistant:before { display: none; }
+body .guide-answer { border-radius: 16px; box-shadow: none; }
+.portfolio .closing-portrait { width: min(280px, 100%); border-radius: var(--card-radius); box-shadow: var(--shadow); }
+/* The library uses the same controls, palette and spacing. */
+body.library { --bg: #fff; --page: #fff; --paper: #f5f7fb; --ink: #1d1d1f; --muted: #596778; --line: #dce3ec; --blue: #0066cc; font-size: 17px; }
+html[data-theme="dark"] body.library { --bg: #101216; --page: #101216; --paper: #191d24; --ink: #f1f3f7; --muted: #afb8c5; --line: #39424f; --blue: #75b8ff; }
+.library header { min-height: 89px; }
+.library header nav { flex-wrap: wrap; gap: 20px; }
+.library header nav a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; }
+.library .intro { padding-block: 80px 64px; }
+.library .intro .lead { font-size: clamp(20px, 3vw, 25px); }
+.library .intro-note { display: inline-block; padding: 8px 14px; background: var(--soft); color: var(--blue-strong); border-radius: 8px; }
+.library .intro .button { display: flex; width: fit-content; }
+.library .guide { border: 1px solid var(--line); border-radius: var(--card-radius); gap: 40px; margin-bottom: 64px; }
+.library .guide ol { counter-reset: steps; padding: 0; list-style: none; }
+.library .guide li { counter-increment: steps; position: relative; padding: 10px 0 18px 48px; }
+.library .guide li::before { content: counter(steps, decimal-leading-zero); position: absolute; left: 0; top: 12px; font-size: 12px; font-weight: 700; color: var(--blue); }
+.library .filters { padding: 24px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
+.library :is(input, select) { min-height: 48px; border-radius: var(--control-radius); }
+.library .filters button { height: auto; min-height: 48px; }
+.library .theorem { background: var(--bg); border-radius: 20px; box-shadow: var(--shadow); padding: 32px; }
+.library .theorem-meta { font-size: 12px; color: var(--blue); }
+.library .theorem h2 { margin-block: 16px; }
+.library .theorem summary { padding: 12px 16px; border: 1px solid var(--line); border-radius: var(--control-radius); background: var(--soft); min-height: 48px; width: fit-content; max-width: 100%; }
+.library .theorem summary:hover { border-color: var(--blue); }
+.library .theorem .proof { padding-top: 16px; }
+.library .proof { max-width: 75ch; }
+.library .permalink { display: inline-flex; align-items: center; min-height: 44px; }
+.library #empty { padding: 32px; border: 1px dashed var(--line); border-radius: 16px; color: var(--muted); }
+.library #acervo { scroll-margin-top: 24px; }
+@media (min-width: 761px) and (max-width: 1100px) {
+  .portfolio .navigation { min-height: 78px; flex-wrap: wrap; position: relative; gap: 12px; }
+  .portfolio .navigation .wordmark { margin-right: auto; }
+  .portfolio .theme-toggle { order: 2; }
+  .portfolio .menu-toggle { order: 3; }
+  .portfolio .navigation .nav-links { order: 4; width: 100%; margin-left: 0; flex-wrap: wrap; padding-bottom: 12px; }
+  .portfolio .navigation[data-enhanced] .nav-links { display: none; position: absolute; top: 78px; left: 0; background: var(--page); border: 1px solid var(--line); border-radius: 0 0 16px 16px; padding: 16px; box-shadow: var(--shadow); max-height: calc(100dvh - 90px); overflow-y: auto; }
+  .portfolio .navigation[data-enhanced] .nav-links.is-open { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 12px; }
+  .portfolio .navigation[data-enhanced] .nav-links a { min-height: 44px; padding: 12px; }
+}
+@media (max-width: 1050px) {
+  .portfolio .hero { padding-top: 64px; min-height: 640px; }
+  .portfolio .hero-actions { grid-template-columns: 1fr 1fr; }
+  .portfolio .hero-actions .button { padding-inline: 12px; }
+  .portfolio :is(.youtube-card, .whatsapp-card) { align-items: flex-start; }
+}
+@media (max-width: 760px) {
+  .portfolio .navigation { gap: 8px; }
+  .portfolio .theme-toggle { margin-left: 0; }
+  .portfolio .navigation[data-enhanced] .nav-links { max-height: calc(100dvh - 76px); overflow-y: auto; }
+  .portfolio .navigation[data-enhanced] .nav-links.is-open { gap: 4px; }
+  .portfolio .navigation[data-enhanced] .nav-links .nav-button { width: 100%; margin-top: 8px; min-height: 48px; }
+  .portfolio .hero { padding-top: 48px; padding-bottom: 36px; min-height: auto; gap: 0; }
+  .portfolio h1 { font-size: clamp(50px, 11vw, 76px); }
+  .portfolio .hero-name { font-size: 18px; }
+  .portfolio .hero-description { margin: 14px auto 0; font-size: 15px; }
+  .portfolio .hero-actions { width: min(440px, 100%); margin-inline: auto; gap: 10px; }
+  .portfolio .hero-actions .button { padding-inline: 12px; font-size: 13px; }
+  .portfolio .hero-caption { font-size: 11px; }
+  .portfolio .section { padding-block: 64px; }
+  .portfolio .institution-names { gap: 12px; }
+  .portfolio .institution-names > span { font-size: 20px; }
+  .portfolio .institution-detail { font-size: 8px; letter-spacing: .4px; }
+  .portfolio :is(.youtube-card, .whatsapp-card) { padding: 28px 24px; }
+  .portfolio :is(.youtube-button, .whatsapp-button) { max-width: 100%; }
+  .portfolio .resource-section { padding: 32px 24px; margin-top: 32px; }
+  .portfolio .materials-section { padding-bottom: 24px; }
+  .portfolio .material-actions .button { flex: 1 1 auto; }
+  .library header { align-items: flex-start; padding-block: 18px; gap: 12px; }
+  .library header nav { justify-content: flex-end; gap: 8px 12px; font-size: 13px; }
+  .library .theme-control { font-size: 13px; padding: 10px 12px; min-height: 44px; }
+  .library .intro { padding-block: 48px; }
+  .library h1 { font-size: clamp(44px, 10vw, 72px); }
+  .library .guide { gap: 16px; padding: 24px; margin-bottom: 48px; }
+  .library .filters { padding: 18px; gap: 16px 12px; }
+  .library .theorem { padding: 24px 20px; }
+  .library .theorem-meta { line-height: 1.6; }
+  .library .theorem summary { width: 100%; }
+  .library .assistant { margin-top: 48px; }
+}
+@media (max-width: 380px) {
+  .portfolio .hero-actions { grid-template-columns: 1fr; }
+  .portfolio .hero-actions .button { font-size: 14px; }
+  .portfolio .institution-names { flex-wrap: wrap; justify-content: center; gap: 22px; }
+  .portfolio .hero-caption { flex-wrap: wrap; }
+  .library .filters { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+@media (forced-colors: active) {
+  body :is(.button, .nav-button, .guide-questions button, .theorem summary) { border: 1px solid ButtonText; }
+}
+@media print {
+  body :is(.resource-section, .library .theorem) { background: #fff; box-shadow: none; }
+  .library .theorem summary { display: none; }
+  .library .theorem { padding: 20px; }
+}
