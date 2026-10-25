@@ -126,9 +126,23 @@ body .closing-actions { margin-top: 28px; }
 .portfolio .achievement { min-height: 310px; }
 .portfolio .achievement :is(.achievement-category, .achievement-footnote) { font-size: 11px; }
 .portfolio .achievement-category { letter-spacing: .8px; }
-.portfolio .achievement-gold { background: #faf5e8; border-color: #e5d5ae; box-shadow: var(--shadow); }
-.portfolio .achievement-bronze { background: #f8eee6; border-color: #e5ccb9; box-shadow: var(--shadow); }
-.portfolio :is(.achievement-gold, .achievement-bronze)::before { display: none; }
+.portfolio .achievement-gold {
+  background: linear-gradient(135deg, #fff8da 0%, #e7bd55 28%, #fff0b1 47%, #d5a332 73%, #f9e29c 100%);
+  border-color: #c3942f;
+  box-shadow: inset 0 1px 0 #fffbe9, inset 0 -1px 0 #b8832633, 0 10px 30px rgb(172 121 23 / 18%);
+}
+.portfolio .achievement-bronze {
+  background: linear-gradient(135deg, #ffe7d3 0%, #cb925f 28%, #f9d9b9 47%, #b77a48 73%, #edc39d 100%);
+  border-color: #ad713f;
+  box-shadow: inset 0 1px 0 #fff1e4, inset 0 -1px 0 #88512a33, 0 10px 30px rgb(132 77 35 / 18%);
+}
+.portfolio :is(.achievement-gold, .achievement-bronze)::before {
+  display: block;
+  background: linear-gradient(110deg, transparent 40%, rgb(255 255 255 / 10%) 45%, rgb(255 255 255 / 75%) 50%, rgb(255 255 255 / 10%) 55%, transparent 60%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .portfolio :is(.achievement-gold, .achievement-bronze)::before { display: none; }
+}
 .portfolio :is(.youtube-section, .whatsapp-section) { padding-bottom: 32px; }
 .portfolio :is(.youtube-card, .whatsapp-card) { background: var(--paper); border: 1px solid var(--line); border-radius: var(--card-radius); box-shadow: none; padding: 40px; gap: 28px; }
 .portfolio :is(.youtube-copy, .whatsapp-copy) { min-width: 0; }
@@ -147,7 +161,7 @@ body #spainner-ai :is(.spainner-ai-card), body #spainner-ai.assistant {
 }
 body #spainner-ai .spainner-ai-card:before, body #spainner-ai.assistant:before { display: none; }
 body .guide-answer { border-radius: 16px; box-shadow: none; }
-.portfolio .closing-portrait { width: min(280px, 100%); border-radius: var(--card-radius); box-shadow: var(--shadow); }
+.portfolio .closing-portrait { width: min(440px, 100%); border-radius: var(--card-radius); box-shadow: var(--shadow); }
 /* The library uses the same controls, palette and spacing. */
 body.library { --bg: #fff; --page: #fff; --paper: #f5f7fb; --ink: #1d1d1f; --muted: #596778; --line: #dce3ec; --blue: #0066cc; font-size: 17px; }
 html[data-theme="dark"] body.library { --bg: #101216; --page: #101216; --paper: #191d24; --ink: #f1f3f7; --muted: #afb8c5; --line: #39424f; --blue: #75b8ff; }
